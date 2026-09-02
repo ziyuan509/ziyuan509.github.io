@@ -572,7 +572,10 @@ main { padding-block: 3.5rem 5rem; }
   width: 5.5rem; height: 2.5rem; margin-top: .0625rem;
   display: grid; place-items: center;
 }
-.cv-row__logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+/* max-height 必须写绝对值。百分比在这里解析不出高度，
+   格子还是 40px 宽时是 max-width 在限制方形徽标，看不出问题；
+   格子加宽到 88px 后宽度限制放开，方形徽标就撑到 88px 了。 */
+.cv-row__logo img { max-width: 100%; max-height: 2.5rem; object-fit: contain; }
 
 /* 有官方反白版时按主题换文件。三种主题状态都要覆盖：
    跟随系统（无 data-theme）、显式浅色、显式深色。 */
