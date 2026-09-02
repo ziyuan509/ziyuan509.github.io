@@ -24,7 +24,8 @@ url         = "https://ziyuanqu.dev"
 
 description = "Ziyuan Qu — HCI and interaction design researcher at RMIT University, working on affective interaction, immersive systems, and playful embodied experiences."
 
-footer_note = "Built by hand. No trackers."
+# 页脚那行小字。留空则整段不渲染（现在就是留空）。
+footer_note = ""
 
 # 首页自我介绍，一段一条，支持行内 HTML
 bio = [

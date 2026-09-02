@@ -155,6 +155,9 @@ THEME_ICONS = (
         '<path d="M20.4 13.6A8.4 8.4 0 1 1 10.4 3.6a6.6 6.6 0 0 0 10 10Z"/>') + '</span>'
 )
 
+MONTHS = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"]
+
 MENU_ICON = _S.format('<path d="M4 7h16M4 12h16M4 17h16"/>')
 
 
@@ -338,7 +341,7 @@ def shell(site: dict, *, title: str, active: str, body: str,
 <footer class="foot">
   <div class="wrap wrap--wide foot__inner">
     <span>© {date.today().year} {e(site['name'])}</span>
-    <span>{e(site.get('footer_note', ''))}</span>
+    {f"<span>{e(site['footer_note'])}</span>" if site.get('footer_note') else ''}
     <span class="foot__updated">updated {date.today().isoformat()}</span>
   </div>
 </footer>
@@ -418,12 +421,16 @@ def pub_entry(p: dict, me: str) -> str:
         href = links.get("page") or links.get("pdf") or links.get("doi")
         title_html = f'<a href="{e(u(href))}">{title_html}</a>'
 
+    when = e(p.get("year", ""))
+    if p.get("month"):
+        when = f'{MONTHS[int(p["month"]) - 1]} {when}'
+
     return f"""<article class="pub">
   {thumb(p.get("thumb", ""), p["title"], "pub__thumb")}
   <div>
     <h3 class="pub__title">{title_html}{award}</h3>
     <div class="pub__authors">{author_line(p.get("authors", []), me)}</div>
-    <div class="pub__venue">{venue} · {e(p.get("year", ""))}</div>
+    <div class="pub__venue">{venue} · {when}</div>
     <div class="pub__act">
       <div class="pills">{pill_links(links)}{"".join(toggles)}</div>
       {"".join(drawers)}
@@ -635,7 +642,8 @@ def render_cv(site, cv) -> str:
             if has_logo:
                 inner = (f'<img src="{e(u(en["logo"]))}" alt="" loading="lazy">'
                          if has_asset(en.get("logo", "")) else "")
-                logo = f'<div class="cv-row__logo" aria-hidden="true">{inner}</div>'
+                cls = "cv-row__logo cv-row__logo--flip" if en.get("logo_invert_dark") else "cv-row__logo"
+                logo = f'<div class="{cls}" aria-hidden="true">{inner}</div>'
             rows.append(f'<div class="cv-row">{logo}<div class="cv-row__when">{e(en.get("when", ""))}</div>'
                         f'<div class="cv-row__what"><strong>{e(en.get("what", ""))}</strong>{where}{note}</div></div>')
         cls = "cv-block cv-block--logos" if has_logo else "cv-block"
@@ -758,7 +766,8 @@ def main() -> int:
     plays = load("games.toml").get("play", [])
     posts = read_posts()
 
-    pubs.sort(key=lambda p: (p.get("year", 0),), reverse=True)
+    # 同年内按会议实际月份排；同年同月的保持 publications.toml 里的先后顺序
+    pubs.sort(key=lambda p: (p.get("year", 0), p.get("month", 0)), reverse=True)
 
     if OUT.exists():
         shutil.rmtree(OUT)

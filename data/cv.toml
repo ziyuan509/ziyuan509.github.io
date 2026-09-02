@@ -39,7 +39,9 @@ title = "Education"
 
   [[section.entry]]
   when  = "Sep 2019 — Jun 2023"
+  # 深蓝色徽标，深色主题下需要反相才看得清
   logo  = "assets/img/logos/sztu.svg"
+  logo_invert_dark = true
   what  = "B.Eng. in Industrial Design"
   where = "Shenzhen Technology University, Shenzhen"
   note  = "Front-end development, UX and interaction design, embedded systems, prototyping, human-centered design."

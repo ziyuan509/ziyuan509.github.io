@@ -279,6 +279,17 @@ main { padding-block: 3.5rem 5rem; }
   .profile__aside { order: 2; position: sticky; top: calc(var(--nav-h) + 2rem); }
   .profile__main  { order: 1; }
 }
+/* 窄屏：头像缩到约三分之一宽、靠左上，联系方式排在它右边。
+   全宽头像会吃掉一整屏，人还没看到名字就得先滚动。 */
+@media (max-width: 44rem) {
+  .profile { gap: 1.5rem; margin-bottom: 2.5rem; }
+  .profile__aside {
+    display: grid; grid-template-columns: minmax(0, 33%) 1fr;
+    gap: 1rem; align-items: start;
+  }
+  .profile__photo { max-width: 8.5rem; }
+  .profile__contact { margin-top: .125rem; }
+}
 
 /* 竖版 3:4 —— 人像比正方形更适合作头像 */
 .profile__photo {
@@ -582,15 +593,27 @@ main { padding-block: 3.5rem 5rem; }
 .cv-row__where { font-size: .9375rem; color: var(--ink-2); }
 .cv-row__note { font-size: .9063rem; color: var(--muted); margin-top: .1875rem; }
 
-/* 机构徽标。多数徽标本身是深色或透明底，所以固定白色底板——
-   否则深色主题下 Aalto 那种黑底标会整块糊进背景里。 */
+/* 机构徽标：透明底，不加底板方块。
+   多数徽标（RMIT 红、EGL 黄、Aalto 黑底白字）在两种主题下都成立；
+   只有深色单色徽标（如深技大的深蓝）需要在深色主题下反相，
+   由 data 里的 logo_invert_dark 打上 --flip 标记。 */
 .cv-block--logos .cv-row { grid-template-columns: 2.5rem 8.5rem 1fr; gap: 1rem 1.125rem; }
 .cv-row__logo {
   width: 2.5rem; height: 2.5rem; margin-top: .0625rem;
   display: grid; place-items: center;
-  background: #fff; border: 1px solid var(--rule);
 }
-.cv-row__logo img { max-width: 76%; max-height: 76%; object-fit: contain; }
+.cv-row__logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+/* invert + hue-rotate(180deg) 只翻转明度、保留色相，
+   所以深蓝会变成浅蓝而不是变成橙色。 */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cv-row__logo--flip img {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+:root[data-theme="dark"] .cv-row__logo--flip img {
+  filter: invert(1) hue-rotate(180deg);
+}
 
 @media (max-width: 32rem) {
   .cv-row { grid-template-columns: 1fr; gap: .25rem; }

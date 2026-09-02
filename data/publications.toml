@@ -1,50 +1,36 @@
 # ─────────────────────────────────────────────────────────────
 #  论文列表
 #
-#  作者全名取自三篇论文 PDF 的作者栏。
-#  ⚠ "Beyond the Screen" 没有 PDF，其中 Yibo Meng / Yan Guan 是按
-#     CV 上的缩写与 companion-animal 那篇的合作者对应推定的，B. Liu 仍是缩写。
-#     请你核对一下这三个名字。
-#  ⚠ companion-animal 那篇 PDF 里印了两个 DOI，我都查过了，两个都不能用：
-#       10.1145/3714394.3756321 → 已注册，但指向的是另一篇论文
-#                                 ("Evaluating the Quality of Counterfactual Explanations…")
-#       10.1145/3714394.3754404 → 未在 Crossref 注册
-#     建议你跟合作者或 ACM 核实正确的 DOI，确认后填进 links。
+#  排序：build.py 按 (year, month) 倒序排。month 是会议实际召开的月份，
+#  同年同月的按本文件里的先后顺序（主会论文排在 workshop 前面）。
+#  会议时间地点已核实：
+#    CHI '26            2026-04-13 ~ 17   Barcelona, Spain
+#    UbiComp/ISWC '26   2026-10-11 ~ 15   Shanghai, China
+#    UbiComp/ISWC '25   2025-10-12 ~ 16   Espoo, Finland（Aalto 大学）
 #
-#  缩略图由 tools/make_pub_thumbs.py 从论文 PDF 里抽取，4:3。
+#  三篇论文都是 CC BY 4.0，可以自由托管，PDF 放在 assets/papers/。
+#
+#  ⚠ "Beyond the Screen" 没有 PDF，其中 Yibo Meng / Yan Guan 是按 CV 缩写
+#     与 companion-animal 那篇的合作者对应推定的，B. Liu 仍是缩写，请核对。
+#  ⚠ companion-animal 那篇 PDF 里印了两个 DOI，都不能用：
+#       10.1145/3714394.3756321 → 已注册，但指向另一篇论文
+#       10.1145/3714394.3754404 → 未在 Crossref 注册
+#     建议跟合作者或 ACM 核实，确认后填进 links。
 # ─────────────────────────────────────────────────────────────
-
-[[pub]]
-title      = "Mapping the Landscape of Affective Extended Reality: A Scoping Review of Biodata-Driven Systems for Understanding and Sharing Emotions"
-authors    = ["Zhidian Lin", "Allison Jing", "Ziyuan Qu", "Fabio Zambetta", "Ryan M. Kelly"]
-venue      = "CHI"
-venue_full = "ACM CHI Conference on Human Factors in Computing Systems · Barcelona, Spain"
-year       = 2026
-award      = "Honorable Mention"
-selected   = true
-thumb      = "assets/img/pubs/affective-xr.jpg"
-links      = { doi = "https://doi.org/10.1145/3772318.3791012" }
-abstract   = """
-Introduces affective extended reality as a way to characterise XR systems that use biodata to make
-emotion understandable. HCI has produced many such systems, but they had not been mapped into a
-coherent whole. We reviewed 82 papers at the intersection of biodata, emotion and XR, analysing the
-sensing technologies they rely on, the interaction techniques they employ, and the design space they
-collectively describe.
-"""
 
 [[pub]]
 title      = "From One-Time Choices to Future Behavior: Revising Privacy Rules for AI Assistants in Shared Spaces"
 authors    = ["Ziyuan Qu", "Jiaxi Hu", "Zhiqi Gao"]
 venue      = "UbiComp Companion"
-venue_full = "Companion of the 2026 ACM International Joint Conference on Pervasive and Ubiquitous Computing · Shanghai, China"
+venue_full = "Companion of the 2026 ACM International Joint Conference on Pervasive and Ubiquitous Computing · Shanghai, China · 11–15 October 2026"
 year       = 2026
+month      = 10
 award      = "To appear"
 selected   = true
 thumb      = "assets/img/pubs/privacy-rules.jpg"
-# ⚠ DOI 10.1145/3798063.3837404 目前在 doi.org 上返回 404、Crossref 也查不到——
-#    UbiComp '26 是 2026 年 10 月的会议，ACM 还没发布论文集。挂上去就是死链。
-#    等 10 月会议后论文集上线，取消下面这行注释即可。
-# links      = { doi = "https://doi.org/10.1145/3798063.3837404" }
+# ⚠ DOI 10.1145/3798063.3837404 目前在 doi.org 返回 404、Crossref 也无记录——
+#    会议还没开、论文集尚未发布。10 月之后把 doi 加回下面这行即可。
+links      = { pdf = "assets/papers/privacy-rules-ubicomp26.pdf" }
 abstract   = """
 An AI assistant in a shared room hears people who never asked to be recorded. Our prototype lets the
 primary user set privacy rules and decide, in the moment, whether a bystander's remark may be used —
@@ -55,11 +41,31 @@ a privacy rule, its future reach has to be visible at the moment of saving.
 """
 
 [[pub]]
+title      = "Mapping the Landscape of Affective Extended Reality: A Scoping Review of Biodata-Driven Systems for Understanding and Sharing Emotions"
+authors    = ["Zhidian Lin", "Allison Jing", "Ziyuan Qu", "Fabio Zambetta", "Ryan M. Kelly"]
+venue      = "CHI"
+venue_full = "ACM CHI Conference on Human Factors in Computing Systems · Barcelona, Spain · 13–17 April 2026"
+year       = 2026
+month      = 4
+award      = "Honorable Mention"
+selected   = true
+thumb      = "assets/img/pubs/affective-xr.jpg"
+links      = { pdf = "assets/papers/affective-xr-chi26.pdf", doi = "https://doi.org/10.1145/3772318.3791012" }
+abstract   = """
+Introduces affective extended reality as a way to characterise XR systems that use biodata to make
+emotion understandable. HCI has produced many such systems, but they had not been mapped into a
+coherent whole. We reviewed 82 papers at the intersection of biodata, emotion and XR, analysing the
+sensing technologies they rely on, the interaction techniques they employ, and the design space they
+collectively describe.
+"""
+
+[[pub]]
 title      = "Beyond the Screen: Passive Peripheral Touch for Reducing Occlusion in Mobile Interaction"
 authors    = ["Ziyuan Qu", "Yibo Meng", "B. Liu", "Yan Guan"]
 venue      = "CHI Workshop"
-venue_full = "CHI 2026 Workshop — Cross-Sensory Futures: Rewiring Perception in HCI"
+venue_full = "Cross-Sensory Futures: Rewiring Perception in HCI — Workshop at ACM CHI 2026 · Barcelona, Spain · April 2026"
 year       = 2026
+month      = 4
 award      = "Accepted"
 selected   = true
 thumb      = "assets/img/projects/touch-it.jpg"
@@ -73,11 +79,13 @@ to read.
 title      = "Companion Animal Emotion and Health Status Monitoring Based on Wearable Multimodal Sensing"
 authors    = ["Yibo Meng", "Ziyuan Qu", "Yan Guan"]
 venue      = "UbiComp/ISWC Companion"
-venue_full = "Companion of the 2025 ACM International Joint Conference on Pervasive and Ubiquitous Computing and the 2025 ACM International Symposium on Wearable Computers · Espoo, Finland"
+venue_full = "Companion of the 2025 ACM International Joint Conference on Pervasive and Ubiquitous Computing and the 2025 ACM International Symposium on Wearable Computers · Espoo, Finland · 12–16 October 2025"
 year       = 2025
+month      = 10
 award      = "Poster · Equal contribution"
 selected   = false
 thumb      = "assets/img/pubs/companion-animal.jpg"
+links      = { pdf = "assets/papers/companion-animal-ubicomp25.pdf" }
 abstract   = """
 Judging how a dog feels usually depends on subjective observation. This non-invasive wearable system
 combines electrodermal activity, photoplethysmography, inertial sensing and audio, and applies machine
