@@ -1,31 +1,33 @@
 #!/usr/bin/env python3
 """
-从 projects/ 下的作品集 PDF 里抽取主图，处理成 Projects 页需要的 2:1 横图。
+处理作品页要用的图片和视频。
 
     python tools/make_project_images.py
 
-产出 assets/img/projects/*.jpg（1600×800）。
-PDF 本身有近 1 GB，已在 .gitignore 里，不进仓库；只有处理后的图片进仓库。
+来源在 projects/ 下（近 1 GB，已在 .gitignore 里，不进仓库）：
+    projects/image/<项目名>/…   手工挑选的图
+    projects/video/…            视频源
 
-想换某个项目的主图：改下面 PICKS 里的 (页码, 图片序号)，重跑。
-序号可以用 scratchpad 里的盘点脚本查，或者把 DEBUG 设成 True 打印全部候选。
+产出到 assets/img/projects/ 和 assets/video/：
+    <slug>-card.jpg     列表页卡片，16:10 居中裁切（网格要统一，所以裁）
+    <slug>.jpg          详情页头图，保持原比例，只限宽
+    <slug>-<名>.jpg     详情页正文配图，保持原比例，只限宽
+    <slug>-<名>.mp4     由 GIF 转出的视频
+
+为什么正文配图不裁：这些是带标注的技术图，裁切会切掉标注和信息。
+只有卡片需要统一比例，所以只裁那一张。
+
+GIF 转 MP4 是因为三个 GIF 加起来 27 MB，直接放网页上手机流量打不开；
+转成 H.264 后能小一个数量级，还能自动循环播放。
 """
 
 from __future__ import annotations
 
-import io
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
-# pypdf 6 默认有防解压炸弹的上限，本地可信文件可以放宽
-import pypdf.filters as _F
-for _n in ("MAX_DECLARED_STREAM_LENGTH", "MAX_ARRAY_BASED_STREAM_OUTPUT_LENGTH",
-           "JBIG2_MAX_OUTPUT_LENGTH", "LZW_MAX_OUTPUT_LENGTH",
-           "RUN_LENGTH_MAX_OUTPUT_LENGTH", "ZLIB_MAX_OUTPUT_LENGTH",
-           "FLATE_MAX_BUFFER_SIZE"):
-    setattr(_F, _n, 2_000_000_000)
-
-from pypdf import PdfReader
 from PIL import Image
 
 for _s in (sys.stdout, sys.stderr):
@@ -33,120 +35,161 @@ for _s in (sys.stdout, sys.stderr):
         _s.reconfigure(encoding="utf-8", errors="replace")
 
 ROOT = Path(__file__).resolve().parent.parent
-PDFS = ROOT / "projects"
+SRC = ROOT / "projects" / "image"
 OUT = ROOT / "assets" / "img" / "projects"
+VOUT = ROOT / "assets" / "video"
 
-W, H = 1600, 800          # 列表页封面 2:1
-SW, SH = 1440, 810        # 详情页正文配图 16:9
+CARD_W, CARD_H = 1200, 750     # 16:10，列表页卡片
+HERO_W = 1800                  # 详情页头图限宽
+FIG_W = 1440                   # 正文配图限宽
+VIDEO_W = 960                  # 视频宽度
 
-# slug -> (pdf, 页码, 图片序号, 顶部裁掉的比例, 说明)
-PICKS = {
-    "was-here":       ("01.pdf", 3,  0, 0.00, "走廊砖墙上的四格投影"),
-    "telepathic-jar": ("02.pdf", 1,  0, 0.00, "两个亮着不同天气色的瓶子"),
-    "dislocation":    ("03.pdf", 4, 19, 0.21, "游戏场景（裁掉顶部 UE 调试文字）"),
-    "touch-it":       ("04.pdf", 1, 12, 0.00, "手持手机与外围触控件"),
+# slug -> {hero: 相对 projects/image 的路径或 None（None = 保留现有头图）,
+#          figs: [(后缀, 路径), …]}
+CURATED = {
+    "was-here": {
+        "hero": "Was Here From Presence to Trace/title.png",
+        "figs": [("plan",   "Was Here From Presence to Trace/1 scene.png"),
+                 ("frames", "Was Here From Presence to Trace/2 installation image.png")],
+    },
+    "telepathic-jar": {
+        "hero": None,
+        "figs": [("circuit", "Telepathic Jar/1 hardware.png"),
+                 ("built",   "Telepathic Jar/2 final.png")],
+    },
+    "dislocation": {
+        "hero": "Dislocation Communication/title.png",
+        "figs": [("iceberg", "Dislocation Communication/1 UI.png"),
+                 ("restore", "Dislocation Communication/3 final.png")],
+    },
+    "touch-it": {
+        "hero": None,
+        "figs": [("mapping",  "TOUCH IT!/Frame 2609502.png"),
+                 ("software", "TOUCH IT!/Frame 2609503.png")],
+    },
+    "theta": {
+        "hero": "theta/cover.png",
+        "figs": [],
+    },
+}
+
+# slug -> [(后缀, GIF 路径, 说明), …]
+VIDEOS = {
+    "theta": [
+        ("settings", "theta/Settings UI.gif",  "径向设置盘"),
+        ("tutorial", "theta/tutorial UI.gif",  "操作指引"),
+        ("bird",     "theta/BirdLonger.gif",   "环形谜题"),
+    ],
 }
 
 
-# 详情页的配图。slug -> [(pdf, 页码, 图片序号, 顶部裁切比例, 文件后缀, 说明), ...]
-SUPPORTING = {
-    "was-here": [
-        ("01.pdf", 1,  0, 0.00, "site",  "走廊现场"),
-        ("01.pdf", 3,  9, 0.00, "build", "搭建与安装"),
-    ],
-    "telepathic-jar": [
-        ("02.pdf", 3,  0, 0.00, "circuit", "电路接线图"),
-        ("02.pdf", 5,  1, 0.00, "build",   "焊接与组装"),
-    ],
-    "dislocation": [
-        ("03.pdf", 4, 12, 0.21, "scene", "游戏场景"),
-        ("03.pdf", 5, 38, 0.21, "room",  "修复后的房间"),
-    ],
-    "touch-it": [
-        ("04.pdf", 1,  8, 0.00, "hardware", "硬件实物"),
-        ("04.pdf", 2,  3, 0.00, "concept",  "原理示意"),
-    ],
-}
+def ffmpeg_exe() -> str | None:
+    exe = shutil.which("ffmpeg")
+    if exe:
+        return exe
+    try:
+        import imageio_ffmpeg
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:
+        return None
 
 
-def fit_box(im: Image.Image, tw: int, th: int, trim_top: float = 0.0) -> Image.Image:
-    """按目标比例居中裁切；比例不够宽的竖图放在纯黑画布上居中。"""
+def limit_width(im: Image.Image, w: int) -> Image.Image:
+    """只限宽，保持原比例。图本来就窄的不放大。"""
     im = im.convert("RGB")
-    if trim_top:
-        im = im.crop((0, int(im.height * trim_top), im.width, im.height))
+    if im.width <= w:
+        return im
+    return im.resize((w, round(im.height * w / im.width)), Image.LANCZOS)
+
+
+def crop_box(im: Image.Image, tw: int, th: int) -> Image.Image:
+    """居中裁成目标比例。"""
+    im = im.convert("RGB")
     w, h = im.size
     target = tw / th
-    if w / h >= target:
+    if w / h > target:
         nw = int(h * target)
         im = im.crop(((w - nw) // 2, 0, (w - nw) // 2 + nw, h))
-        return im.resize((tw, th), Image.LANCZOS)
-    scale = th / h
-    im = im.resize((max(1, int(w * scale)), th), Image.LANCZOS)
-    canvas = Image.new("RGB", (tw, th), (0, 0, 0))
-    canvas.paste(im, ((tw - im.width) // 2, 0))
-    return canvas
+    else:
+        nh = int(w / target)
+        im = im.crop((0, (h - nh) // 2, w, (h - nh) // 2 + nh))
+    return im.resize((tw, th), Image.LANCZOS)
 
 
-def fit_2to1(im: Image.Image, trim_top: float) -> Image.Image:
-    """裁成 2:1。够宽的直接居中裁；竖图放不下就在纯黑画布上居中留边。"""
-    im = im.convert("RGB")
-    if trim_top:
-        im = im.crop((0, int(im.height * trim_top), im.width, im.height))
-
-    w, h = im.size
-    if w / h >= 2.0:
-        # 横图：按高度定宽，水平居中裁
-        new_w = h * 2
-        left = (w - new_w) // 2
-        im = im.crop((left, 0, left + new_w, h))
-        return im.resize((W, H), Image.LANCZOS)
-
-    # 竖图或近方图：等比缩到画布高度，放在黑底上居中
-    scale = H / h
-    im = im.resize((max(1, int(w * scale)), H), Image.LANCZOS)
-    canvas = Image.new("RGB", (W, H), (0, 0, 0))
-    canvas.paste(im, ((W - im.width) // 2, 0))
-    return canvas
+def save(im: Image.Image, dest: Path, q: int = 84) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    im.save(dest, quality=q, optimize=True, progressive=True)
+    print(f"  {dest.relative_to(ROOT).as_posix():<46} {im.width}×{im.height}  "
+          f"{dest.stat().st_size / 1024:6.1f} KB")
 
 
 def main() -> int:
-    if not PDFS.exists():
-        print(f"! 找不到 {PDFS}", file=sys.stderr)
+    if not SRC.exists():
+        print(f"! 找不到 {SRC}", file=sys.stderr)
         return 1
     OUT.mkdir(parents=True, exist_ok=True)
 
-    for slug, (pdf_name, page_no, img_idx, trim, note) in PICKS.items():
-        path = PDFS / pdf_name
-        if not path.exists():
-            print(f"! 跳过 {slug}：找不到 {pdf_name}")
-            continue
-        try:
-            reader = PdfReader(str(path))
-            images = reader.pages[page_no - 1].images
-            src = Image.open(io.BytesIO(images[img_idx].data))
-        except Exception as exc:
-            print(f"! {slug}: {type(exc).__name__}: {exc}", file=sys.stderr)
-            continue
+    for slug, spec in CURATED.items():
+        print(f"\n{slug}")
+        hero_src = None
+        if spec["hero"]:
+            hero_src = SRC / spec["hero"]
+            if not hero_src.exists():
+                print(f"  ! 缺 {spec['hero']}", file=sys.stderr)
+                hero_src = None
 
-        dest = OUT / f"{slug}.jpg"
-        fit_2to1(src, trim).save(dest, quality=84, optimize=True, progressive=True)
-        print(f"✓ {dest.relative_to(ROOT)}  {W}×{H}  "
-              f"{dest.stat().st_size / 1024:5.1f} KB   ← {pdf_name} p{page_no} #{img_idx}  {note}")
+        if hero_src:
+            im = Image.open(hero_src)
+            save(limit_width(im, HERO_W), OUT / f"{slug}.jpg")
+            save(crop_box(im, CARD_W, CARD_H), OUT / f"{slug}-card.jpg")
+        elif (OUT / f"{slug}.jpg").exists():
+            # 沿用现有头图，只补一张卡片图
+            save(crop_box(Image.open(OUT / f"{slug}.jpg"), CARD_W, CARD_H),
+                 OUT / f"{slug}-card.jpg")
 
-    for slug, items in SUPPORTING.items():
-        for pdf_name, page_no, img_idx, trim, suffix, note in items:
-            path = PDFS / pdf_name
-            if not path.exists():
+        for name, rel in spec["figs"]:
+            p = SRC / rel
+            if not p.exists():
+                print(f"  ! 缺 {rel}", file=sys.stderr)
                 continue
+            save(limit_width(Image.open(p), FIG_W), OUT / f"{slug}-{name}.jpg", q=86)
+
+    # ── GIF → MP4 ──────────────────────────────────────────────
+    exe = ffmpeg_exe()
+    if not exe:
+        print("\n! 找不到 ffmpeg，跳过视频转换（pip install imageio-ffmpeg）", file=sys.stderr)
+        return 0
+
+    VOUT.mkdir(parents=True, exist_ok=True)
+    print("\n视频")
+    for slug, items in VIDEOS.items():
+        for name, rel, note in items:
+            src = SRC / rel
+            if not src.exists():
+                print(f"  ! 缺 {rel}", file=sys.stderr)
+                continue
+            dest = VOUT / f"{slug}-{name}.mp4"
+            poster = OUT / f"{slug}-{name}-poster.jpg"
+            cmd = [exe, "-y", "-loglevel", "error", "-i", str(src),
+                   # 宽度定死、高度取偶数（H.264 要求）
+                   "-vf", f"scale={VIDEO_W}:-2:flags=lanczos",
+                   "-c:v", "libx264", "-profile:v", "main", "-pix_fmt", "yuv420p",
+                   "-crf", "26", "-preset", "slow", "-an",
+                   "-movflags", "+faststart", str(dest)]
             try:
-                reader = PdfReader(str(path))
-                src = Image.open(io.BytesIO(reader.pages[page_no - 1].images[img_idx].data))
-            except Exception as exc:
-                print(f"! {slug}-{suffix}: {type(exc).__name__}: {exc}", file=sys.stderr)
+                subprocess.run(cmd, check=True, capture_output=True)
+            except subprocess.CalledProcessError as exc:
+                print(f"  ! {dest.name}: {exc.stderr.decode(errors='replace')[:160]}", file=sys.stderr)
                 continue
-            dest = OUT / f"{slug}-{suffix}.jpg"
-            fit_box(src, SW, SH, trim).save(dest, quality=82, optimize=True, progressive=True)
-            print(f"  · {dest.name:34} {SW}×{SH}  {dest.stat().st_size / 1024:5.1f} KB   {note}")
+            before = src.stat().st_size / 1048576
+            after = dest.stat().st_size / 1048576
+            print(f"  {dest.relative_to(ROOT).as_posix():<40} "
+                  f"{before:5.1f} MB → {after:4.1f} MB  ({before/after:.0f}× 更小)  {note}")
+
+            # 首帧做 poster，视频没加载出来时先显示它
+            g = Image.open(src)
+            g.seek(0)
+            save(limit_width(g.convert("RGB"), FIG_W), poster, q=80)
     return 0
 
 

@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TOUCH IT! · Ziyuan Qu</title>
-<meta name="description" content="A passive, battery-free accessory that takes your finger off the screen it is trying to read.">
+<meta name="description" content="A passive accessory that moves the contact point off the screen so your hand stops hiding the target.">
 <meta name="author" content="Ziyuan Qu">
 <meta property="og:title" content="TOUCH IT! · Ziyuan Qu">
-<meta property="og:description" content="A passive, battery-free accessory that takes your finger off the screen it is trying to read.">
+<meta property="og:description" content="A passive accessory that moves the contact point off the screen so your hand stops hiding the target.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ziyuan Qu">
 <link rel="canonical" href="https://ziyuanqu.dev/projects/touch-it.html">
@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('pw-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="/assets/css/fonts.css?v=1e66fc4d">
-<link rel="stylesheet" href="/assets/css/main.css?v=cd13ef9b">
+<link rel="stylesheet" href="/assets/css/main.css?v=9e837286">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -37,31 +37,36 @@
 
 <main id="main">
 <div class="wrap wrap--wide">
+  <a class="pfloat" href="/projects.html" aria-label="Back to all projects">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg><span>Projects</span>
+  </a>
   <p class="pback"><a href="/projects.html">← Projects</a></p>
   <header class="phead">
     <span class="label">Device · 2024 · Hardware · Software · UX</span>
     <h1>TOUCH IT!</h1>
-    <p class="phead__lead">Borrowing the layout of a kalimba, metal tines act as extended electrodes, so a tap or a swipe still
-registers while your hand stops covering the thing you are trying to read. No battery, no pairing,
-nothing to charge. This work later became a CHI 2026 workshop paper.</p>
-    <div class="phead__foot"><span class="tag">Swift</span><span class="tag">Hardware prototyping</span><span class="tag">Mobile interaction</span></div>
+    <p class="phead__lead">Metal tines, laid out like a kalimba, act as extended electrodes against a touchscreen. A tap or a
+swipe across them still registers, but the hand never crosses the display. No battery, no pairing,
+nothing to charge. The work became a CHI 2026 workshop paper.</p>
+    <div class="phead__foot"><span class="tag">Swift</span><span class="tag">Capacitive sensing</span><span class="tag">Mobile interaction</span></div>
     
   </header>
   <div class="phero reveal"><img src="/assets/img/projects/touch-it.jpg" alt=""></div>
-  <div class="facts reveal"><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.4 11V5.6a1.6 1.6 0 0 1 3.2 0V11"/><path d="M11.6 10.6V4.4a1.6 1.6 0 0 1 3.2 0v6.2"/><path d="M14.8 11V7.2a1.6 1.6 0 0 1 3.2 0v7.4a6 6 0 0 1-6 6h-1a5 5 0 0 1-3.6-1.5l-3-3.1a1.6 1.6 0 0 1 2.3-2.3l1.7 1.6"/></svg></span><span class="fact__label">Problem</span><span class="fact__value">Finger occlusion on touchscreens</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/></svg></span><span class="fact__label">Hardware</span><span class="fact__value">Metal tines on insulated PET — no power</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.6 8.4 4.6 12l4 3.6M15.4 8.4l4 3.6-4 3.6M13.6 5.4l-3.2 13.2"/></svg></span><span class="fact__label">Software</span><span class="fact__value">Swift / UIKit gesture prototype</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6"/><path d="M15.8 15.8a5.4 5.4 0 0 0 0-7.6"/><path d="M5.4 5.4a9.4 9.4 0 0 0 0 13.2"/><path d="M18.6 18.6a9.4 9.4 0 0 0 0-13.2"/></svg></span><span class="fact__label">Principle</span><span class="fact__value">Capacitive contact extension</span></div></div>
-  <div class="psecs"><section class="psec reveal"><h2>The fat-finger problem</h2><div class="psec__body">A finger covering a key disturbs capacitive sensing, so the wrong letter goes in — <em>bucked</em>
-instead of <em>bucket</em>, because k and l are neighbours. Worse than the typo is what it hides: in a
-map or a document, the thing you most want to see is exactly the thing under your hand. Occlusion
-causes mis-triggering as well as blindness, because a blocked touch signal shifts and the system reads
-the wrong target.</div></section><section class="psec reveal"><h2>Why a kalimba</h2><div class="psec__body">Existing answers all add material between finger and glass — touchscreen gloves, styluses, conductive
-coatings, conductive patches — and all of them still put a fingertip-sized conductor on the surface. A
-kalimba is already held against a phone, with the far end of each tine resting on the screen. Treating
-those tines as extended contacts moves the hand off the display entirely, and varying their spacing and
-width turns a slide across them into a swipe.</div><figure class="psec__fig"><img src="/assets/img/projects/touch-it-concept.jpg" alt="" loading="lazy"><figcaption>Linear electrodes on an insulating substrate, sized so a finger crossing them reads as a gesture.</figcaption></figure></section><section class="psec reveal"><h2>Software, and the honest limit</h2><div class="psec__body">The iOS prototype is written in Swift on UIKit: gesture recognition for tap and swipe, a cursor drawn
-where the signal lands, and a threshold that separates a tap from a drag. A stored previous position
-carries the cursor between gestures, so a swipe resumes where the last one ended rather than jumping.
-The limit is iOS itself — a genuinely global emulated pointer is only possible on a jailbroken device,
-so the prototype demonstrates the interaction inside its own app rather than across the system.</div><figure class="psec__fig"><img src="/assets/img/projects/touch-it-hardware.jpg" alt="" loading="lazy"><figcaption>Holding the device: the narrow segment sits under the finger, the wider one against the screen.</figcaption></figure></section></div>
+  <div class="facts reveal"><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.4 11V5.6a1.6 1.6 0 0 1 3.2 0V11"/><path d="M11.6 10.6V4.4a1.6 1.6 0 0 1 3.2 0v6.2"/><path d="M14.8 11V7.2a1.6 1.6 0 0 1 3.2 0v7.4a6 6 0 0 1-6 6h-1a5 5 0 0 1-3.6-1.5l-3-3.1a1.6 1.6 0 0 1 2.3-2.3l1.7 1.6"/></svg></span><span class="fact__label">Problem</span><span class="fact__value">Occlusion is an input error, not just a view one</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/></svg></span><span class="fact__label">Hardware</span><span class="fact__value">Linear electrodes on insulated PET, unpowered</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.6 8.4 4.6 12l4 3.6M15.4 8.4l4 3.6-4 3.6M13.6 5.4l-3.2 13.2"/></svg></span><span class="fact__label">Software</span><span class="fact__value">Swift / UIKit gesture prototype</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6"/><path d="M15.8 15.8a5.4 5.4 0 0 0 0-7.6"/><path d="M5.4 5.4a9.4 9.4 0 0 0 0 13.2"/><path d="M18.6 18.6a9.4 9.4 0 0 0 0-13.2"/></svg></span><span class="fact__label">Principle</span><span class="fact__value">Extending the capacitive contact off-screen</span></div></div>
+  <div class="psecs"><section class="psec reveal"><h2>Occlusion is an input problem</h2><div class="psec__body">The obvious cost of a finger on glass is that it hides what is underneath. The less obvious one is that
+it corrupts the input itself: a finger covering a key disturbs capacitive sensing, the detected centroid
+shifts, and the system resolves to the wrong target. That is why <em>bucket</em> comes out as
+<em>bucked</em> — k and l are adjacent, and the contact patch straddles both. Treating this as a display
+problem leads to bigger targets. Treating it as an input problem leads to moving the contact.</div></section><section class="psec reveal"><h2>Encoding direction in the electrode geometry</h2><div class="psec__body">A capacitive screen needs a fingertip-sized conductor on its surface, so the accessory supplies one —
+just not the finger. Several linear electrodes contact the glass while the hand rests off to the side,
+and their spacing and width do the work of encoding a gesture: sliding across tines of one pitch reads
+as a vertical swipe, across another as horizontal. The narrow segment sits under the finger, the wider
+one against the screen, with an insulating layer keeping the two touch surfaces from shorting into a
+single ambiguous blob.</div><figure class="psec__fig"><img src="/assets/img/projects/touch-it-mapping.jpg" alt="" loading="lazy"><figcaption>How the geometry maps to gestures, and which segment goes where.</figcaption></figure></section><section class="psec reveal"><h2>Disambiguating tap from drag, and the platform limit</h2><div class="psec__body">The iOS prototype is written in Swift on UIKit. Gesture recognition classifies the incoming signal into
+tap or swipe against a threshold, a cursor is drawn where the contact resolves, and a stored previous
+position carries the cursor across gestures so a swipe resumes where the last one ended rather than
+snapping back. The honest limit is the platform: a genuinely system-wide emulated pointer needs a
+jailbroken device, so the prototype demonstrates the interaction inside its own application rather than
+across iOS.</div><figure class="psec__fig"><img src="/assets/img/projects/touch-it-software.jpg" alt="" loading="lazy"><figcaption>The software prototype running against the physical accessory.</figcaption></figure></section></div>
   <p class="pback pback--end"><a href="/projects.html">← All projects</a></p>
 </div>
 </main>
@@ -74,6 +79,6 @@ so the prototype demonstrates the interaction inside its own app rather than acr
   </div>
 </footer>
 
-<script src="/assets/js/site.js?v=8fb30e24" defer></script>
+<script src="/assets/js/site.js?v=34c1764b" defer></script>
 </body>
 </html>

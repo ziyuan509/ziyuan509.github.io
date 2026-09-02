@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Telepathic Jar · Ziyuan Qu</title>
-<meta name="description" content="Two IoT bottles that sense the weather where each person is and translate it into light and mist.">
+<meta name="description" content="Two networked bottles that translate remote weather into light and mist instead of numbers.">
 <meta name="author" content="Ziyuan Qu">
 <meta property="og:title" content="Telepathic Jar · Ziyuan Qu">
-<meta property="og:description" content="Two IoT bottles that sense the weather where each person is and translate it into light and mist.">
+<meta property="og:description" content="Two networked bottles that translate remote weather into light and mist instead of numbers.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ziyuan Qu">
 <link rel="canonical" href="https://ziyuanqu.dev/projects/telepathic-jar.html">
@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('pw-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="/assets/css/fonts.css?v=1e66fc4d">
-<link rel="stylesheet" href="/assets/css/main.css?v=cd13ef9b">
+<link rel="stylesheet" href="/assets/css/main.css?v=9e837286">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -37,29 +37,42 @@
 
 <main id="main">
 <div class="wrap wrap--wide">
+  <a class="pfloat" href="/projects.html" aria-label="Back to all projects">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg><span>Projects</span>
+  </a>
   <p class="pback"><a href="/projects.html">← Projects</a></p>
   <header class="phead">
     <span class="label">Installation · 2025 · Concept · Hardware · Firmware</span>
     <h1>Telepathic Jar</h1>
-    <p class="phead__lead">Two bottles in two different places, each sensing the weather where it stands and translating it into
-light and mist. The point is not to report the weather. It is to give two people a quiet, ambient sense
-that the other is having a grey afternoon — the kind of presence a messaging app is bad at carrying.</p>
+    <p class="phead__lead">Two bottles in two places. Each senses the weather where it stands and renders the other's conditions
+as colour, brightness and mist. Nothing is ever displayed as a number — the design question is what a
+system should <em>withhold</em> in order to stay in peripheral attention rather than demanding it.</p>
     <div class="phead__foot"><span class="tag">IoT</span><span class="tag">ESP32</span><span class="tag">MQTT</span><span class="tag">Calm technology</span></div>
     <div class="pills"><a class="pill" href="https://youtu.be/Q9m8JZQBXWs" target="_blank" rel="noopener">video</a></div>
   </header>
   <div class="phero reveal"><img src="/assets/img/projects/telepathic-jar.jpg" alt=""></div>
-  <div class="facts reveal"><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/></svg></span><span class="fact__label">Hardware</span><span class="fact__value">ESP32-S3 · BME280 · BH1750 · NeoPixel ring · nebuliser</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6"/><path d="M15.8 15.8a5.4 5.4 0 0 0 0-7.6"/><path d="M5.4 5.4a9.4 9.4 0 0 0 0 13.2"/><path d="M18.6 18.6a9.4 9.4 0 0 0 0-13.2"/></svg></span><span class="fact__label">Link</span><span class="fact__value">MQTT over TLS, via HiveMQ Cloud</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.6 8.4 4.6 12l4 3.6M15.4 8.4l4 3.6-4 3.6M13.6 5.4l-3.2 13.2"/></svg></span><span class="fact__label">Data</span><span class="fact__value">Local sensors plus live weather API</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="4.4" width="18.8" height="12.6" rx="1.4"/><path d="M8.4 20.6h7.2M12 17.2v3.4"/></svg></span><span class="fact__label">Output</span><span class="fact__value">Colour, brightness, and mist density</span></div></div>
-  <div class="psecs"><section class="psec reveal"><h2>Curating, not reporting</h2><div class="psec__body">The system never shows a raw sensor value. Which colours the light can take, how bright it is allowed
-to get, and what makes the nebuliser fire are all design decisions — they map temperature, humidity,
-pressure, ambient light and live weather onto an atmosphere rather than a readout. The bottle form is
-deliberate too: the storm glass is a weather instrument with a few centuries of design heritage behind
-it, and this is an attempt at a modern one.</div></section><section class="psec reveal"><h2>How the two jars find each other</h2><div class="psec__body">On first boot each jar is given its own device ID and its partner's through a web configuration portal.
-From those it builds its MQTT topics — one to publish its readings, one to subscribe to its partner's —
-and connects to the broker over TLS. The first firmware simply reconnected whenever the link dropped,
-which failed quietly and often; the shipped version adds periodic reconnection and detailed status
-reporting, so a jar that has lost its partner says so instead of just going dark.</div><figure class="psec__fig"><img src="/assets/img/projects/telepathic-jar-circuit.jpg" alt="" loading="lazy"><figcaption>Two identical stacks: sensing, a controller, a light ring, and a nebuliser.</figcaption></figure></section><section class="psec reveal"><h2>Making it</h2><div class="psec__body">Everything was assembled and tested by hand — sensors verified one at a time against serial output
-before anything went into an enclosure. Low power was not the focus of this build, but the component
-choices leave room for it: deep sleep on the ESP32 and a battery are the obvious next step.</div><figure class="psec__fig"><img src="/assets/img/projects/telepathic-jar-build.jpg" alt="" loading="lazy"><figcaption>Bench assembly and continuity testing.</figcaption></figure></section></div>
+  <div class="facts reveal"><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/></svg></span><span class="fact__label">Hardware</span><span class="fact__value">ESP32-S3 · BME280 · BH1750 · NeoPixel ring · nebuliser</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6"/><path d="M15.8 15.8a5.4 5.4 0 0 0 0-7.6"/><path d="M5.4 5.4a9.4 9.4 0 0 0 0 13.2"/><path d="M18.6 18.6a9.4 9.4 0 0 0 0-13.2"/></svg></span><span class="fact__label">Transport</span><span class="fact__value">MQTT over TLS, symmetric publish/subscribe</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.6 8.4 4.6 12l4 3.6M15.4 8.4l4 3.6-4 3.6M13.6 5.4l-3.2 13.2"/></svg></span><span class="fact__label">Sources</span><span class="fact__value">Local sensors plus a live weather API</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="4.4" width="18.8" height="12.6" rx="1.4"/><path d="M8.4 20.6h7.2M12 17.2v3.4"/></svg></span><span class="fact__label">Rendering</span><span class="fact__value">Colour, brightness, mist density</span></div></div>
+  <div class="psecs"><section class="psec reveal"><h2>One firmware, two roles</h2><div class="psec__body">Both jars run identical firmware. What differentiates them is two strings set through a web
+configuration portal on first boot: its own device ID and its partner's. Every MQTT topic is derived
+from those, so jar A publishes to <code>telepathic_jar/JarA/data</code> and subscribes to
+<code>telepathic_jar/JarB/data</code>, and the pairing is symmetric by construction rather than by
+configuration discipline. Adding a third jar would mean changing the topic scheme, not the code that
+reads sensors.</div><figure class="psec__code"><pre><code>float temp  = bme.readTemperature();
+float hum   = bme.readHumidity();
+float light = lightMeter.readLightLevel();
+
+mqttClient.publish(topic_publish_p2p_data.c_str(), output_json.c_str());
+mqttClient.subscribe(topic_subscribe_p2p_data.c_str());</code></pre><figcaption>The read-and-publish loop, from the project write-up</figcaption></figure><figure class="psec__fig"><img src="/assets/img/projects/telepathic-jar-circuit.jpg" alt="" loading="lazy"><figcaption>One jar&#x27;s stack: environmental sensing, a controller, a light ring and a nebuliser.</figcaption></figure></section><section class="psec reveal"><h2>Curating the mapping, not reporting the data</h2><div class="psec__body">The system never shows a reading. Which colours the light is allowed to take, how bright it may get,
+and what makes the nebuliser fire are all authored decisions that map temperature, humidity, pressure,
+ambient light and live weather onto an atmosphere. Weather text from the API is matched to a base hue
+before temperature adjusts it, so <em>rain</em> and <em>cold rain</em> are related but distinguishable.
+The constraint that mattered was restraint: enough resolution to feel a change, not enough to invite
+reading it as a measurement.</div><figure class="psec__fig"><img src="/assets/img/projects/telepathic-jar-built.jpg" alt="" loading="lazy"><figcaption>The finished pair, one lit from the internal ring.</figcaption></figure></section><section class="psec reveal"><h2>Ambient systems have to make failure legible</h2><div class="psec__body">The first firmware reconnected silently whenever the link dropped, which produced the worst possible
+ambiguity for a calm-technology object: a jar sitting quietly could mean <em>it is calm where they
+are</em> or <em>the connection is gone</em>. Those are opposite messages rendered identically. The
+shipped version adds periodic reconnection with explicit status reporting, so an unreachable partner
+looks different from a peaceful one. For a device whose whole point is being glanced at rather than
+read, an unreadable failure state is not a minor bug.</div></section></div>
   <p class="pback pback--end"><a href="/projects.html">← All projects</a></p>
 </div>
 </main>
@@ -72,6 +85,6 @@ choices leave room for it: deep sleep on the ESP32 and a battery are the obvious
   </div>
 </footer>
 
-<script src="/assets/js/site.js?v=8fb30e24" defer></script>
+<script src="/assets/js/site.js?v=34c1764b" defer></script>
 </body>
 </html>

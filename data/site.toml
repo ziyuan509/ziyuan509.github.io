@@ -42,7 +42,8 @@ social = [
   { kind = "email",    url = "mailto:ziyuan.qu@student.rmit.edu.au" },
   { kind = "orcid",    url = "https://orcid.org/0009-0000-7714-9784" },
   { kind = "github",   url = "https://github.com/ziyuan509" },
-  { kind = "linkedin", url = "https://www.linkedin.com/in/ziyuan-qu-2a1654360/" },
+  { kind = "linkedin",  url = "https://www.linkedin.com/in/ziyuan-qu-2a1654360/" },
+  { kind = "instagram", url = "https://www.instagram.com/qu.ziyuan/" },
 ]
 
 # ── Research Interests ─────────────────────────────────────

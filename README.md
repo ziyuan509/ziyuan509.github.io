@@ -179,13 +179,13 @@ git push -u origin main
 
 | 元素 | 效果 | 用的技术 |
 |---|---|---|
-| 卡片 / 大图 | 一条 2px 强调线从左擦入边缘 | `transform: scaleX()` + `transform-origin` |
-| 导航项 | 同一条下划线，当前页是「已擦到位」 | 同上，hover 与 active 共用一条规则 |
+| 卡片 / 大图 | 边缘一条 2px 强调线渐隐渐显 | `opacity` 过渡 |
+| 导航项 | 同一条下划线，当前页常显 | 同上，hover 与 active 共用一条规则 |
 | 正文链接 | 下划线加深并下沉一点 | `text-decoration-color` + `text-underline-offset` |
 | 标题链接 | 下划线从透明淡入 | 同上，静止时线已占位所以不跳动 |
 | pill / 社交方块 | 底色从下往上灌满 | `background-size` 走行程，不用伪元素 |
 
-全站动画属性只允许这六个：`transform`、`color`、`border-color`、`background-size`、
+全站动画属性只允许这六个：`opacity`、`color`、`border-color`、`background-size`、
 `text-decoration-color`、`text-underline-offset`。`--shadow` 只保留给移动端下拉菜单
 那种功能性浮层。
 
@@ -200,17 +200,34 @@ git push -u origin main
 
 ### 图片尺寸的层级
 
-| 位置 | 比例 | 桌面实际尺寸 |
-|---|---|---|
-| 作品详情页封面 | 2 / 1 | 944 × 472 |
-| 作品详情页正文配图 | 16 / 9 | 944 × 531 |
-| 作品列表页卡片 | 16 / 10 | 460 × 288 |
-| Publications 缩略图 | 4 / 3 | 184 × 138 |
-| 游戏封面 | 3 / 4 | 72 × 96 |
+| 位置 | 比例 |
+|---|---|
+| 作品列表页卡片 | 16 / 10 裁切（网格要统一） |
+| 作品详情页头图 | **保持原比例**，只限宽 |
+| 作品详情页正文配图 | **保持原比例**，只限宽 |
+| Publications 缩略图 | 4 / 3 裁切 |
+| 游戏封面 | 3 / 4 裁切 |
 
-作品列表页是两列卡片，点进去才是大图详情页 `projects/<slug>.html`。
-详情页内容写在 `projects.toml` 的 `lead`、`facts`、`[[project.section]]` 里，
-`facts` 的图标从 `build.py` 的 `FACT_ICONS` 里选。
+**详情页的图不要裁。** 那些是带标注的技术图，统一裁成 16:9 会把标注和信息切掉。
+只有列表页卡片需要统一比例，所以只裁那一张。
+
+作品列表页是两列卡片，点进去是详情页 `projects/<slug>.html`。详情页内容写在
+`projects.toml` 的 `lead`、`facts`、`[[project.section]]` 里；section 支持
+`image`、`video`+`poster`、`code`+`code_lang` 三种媒体，`facts` 的图标从
+`build.py` 的 `FACT_ICONS` 里选。
+
+### 详情页的写作定位
+
+讲**技术逻辑与交互实现**，不写制作流程。读者是 HCI 同行，他们关心「这个交互
+为什么这样设计、系统怎么支撑它」，不关心先切了板材再装了投影仪。
+
+### 视频而不是 GIF
+
+UI 演示一律转成 MP4。三个原始 GIF 加起来 27 MB，直接放网页手机流量打不开；
+转 H.264 后 2 MB，小一个数量级。`tools/make_project_images.py` 会调用
+`imageio-ffmpeg` 自带的 ffmpeg 转换，并抽首帧做 poster。
+视频是 `autoplay muted loop playsinline`，开了「减少动效」的用户由 `site.js`
+改成手动播放。
 
 ---
 

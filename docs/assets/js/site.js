@@ -133,3 +133,21 @@
     }
   }, 1500);
 })();
+
+/* --- 演示视频 ---------------------------------------------------------
+   详情页的 UI 演示是自动循环播放的无声视频。开了「减少动效」的用户
+   不应该被强制播放，所以这里停掉并给出播放控件，由他们自己决定。 */
+
+(function () {
+  "use strict";
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  var vids = document.querySelectorAll("video[autoplay]");
+  for (var i = 0; i < vids.length; i++) {
+    vids[i].removeAttribute("autoplay");
+    vids[i].removeAttribute("loop");
+    vids[i].controls = true;
+    vids[i].pause();
+  }
+})();

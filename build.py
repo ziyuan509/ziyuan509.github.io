@@ -152,6 +152,9 @@ ICONS = {
     "itch": _S.format(
         '<path d="M3.2 7.4 5.6 4h12.8l2.4 3.4"/><path d="M3.2 7.4V19a1 1 0 0 0 1 1h15.6a1 1 0 0 0 1-1V7.4"/>'
         '<path d="M9 12.2h6M12 9.4v5.6"/>'),
+    "instagram": _S.format(
+        '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/>'
+        '<circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/>'),
     "rss": _S.format('<path d="M5 11.4A7.6 7.6 0 0 1 12.6 19M5 5.6A13.4 13.4 0 0 1 18.4 19"/>'
                      '<circle cx="5.6" cy="18.4" r="1.4" fill="currentColor" stroke="none"/>'),
 }
@@ -160,7 +163,7 @@ ICON_LABEL = {
     "email": "Email", "scholar": "Google Scholar", "github": "GitHub", "orcid": "ORCID",
     "arxiv": "arXiv", "dblp": "DBLP", "cv": "CV (PDF)", "twitter": "X / Twitter",
     "bluesky": "Bluesky", "mastodon": "Mastodon", "linkedin": "LinkedIn",
-    "youtube": "YouTube", "itch": "itch.io", "rss": "RSS",
+    "youtube": "YouTube", "itch": "itch.io", "instagram": "Instagram", "rss": "RSS",
 }
 
 THEME_ICONS = (
@@ -496,7 +499,7 @@ def project_card(p: dict) -> str:
     href = project_url(p)
     return f"""<article class="card">
   <a class="card__media-link" href="{href}" tabindex="-1" aria-hidden="true">
-    {thumb(p.get("image", ""), p["name"], "card__media")}
+    {thumb(p.get("card") or p.get("image", ""), p["name"], "card__media")}
   </a>
   <div class="card__body">
     <h3 class="card__title"><a href="{href}">{e(p["name"])}</a></h3>
@@ -522,14 +525,29 @@ def project_facts(p: dict) -> str:
 def project_sections(p: dict) -> str:
     out = []
     for sec in p.get("section", []):
-        fig = ""
-        if has_asset(sec.get("image", "")):
-            cap = (f'<figcaption>{e(sec["caption"])}</figcaption>'
-                   if sec.get("caption") else "")
-            fig = (f'<figure class="psec__fig"><img src="{e(u(sec["image"]))}" alt="" '
-                   f'loading="lazy">{cap}</figure>')
+        media = ""
+        cap = f'<figcaption>{e(sec["caption"])}</figcaption>' if sec.get("caption") else ""
+
+        if sec.get("video") and has_asset(sec["video"]):
+            poster = (f' poster="{e(u(sec["poster"]))}"'
+                      if has_asset(sec.get("poster", "")) else "")
+            # 自动循环播放的无声演示。开了「减少动效」的用户由 site.js 改成手动播放。
+            media = (f'<figure class="psec__fig"><video src="{e(u(sec["video"]))}"{poster} '
+                     f'autoplay muted loop playsinline preload="metadata"></video>{cap}</figure>')
+        elif has_asset(sec.get("image", "")):
+            media = (f'<figure class="psec__fig"><img src="{e(u(sec["image"]))}" alt="" '
+                     f'loading="lazy">{cap}</figure>')
+
+        code = ""
+        if sec.get("code"):
+            label = (f'<figcaption>{e(sec["code_lang"])}</figcaption>'
+                     if sec.get("code_lang") else "")
+            code = (f'<figure class="psec__code"><pre><code>{e(sec["code"].strip())}</code></pre>'
+                    f'{label}</figure>')
+
         out.append(f'<section class="psec reveal"><h2>{e(sec.get("heading", ""))}</h2>'
-                   f'<div class="psec__body">{sec.get("body", "").strip()}</div>{fig}</section>')
+                   f'<div class="psec__body">{sec.get("body", "").strip()}</div>'
+                   f'{code}{media}</section>')
     return "".join(out)
 
 
@@ -701,6 +719,9 @@ def render_project(site, p) -> str:
     pills = pill_links(links)
 
     body = f"""<div class="wrap wrap--wide">
+  <a class="pfloat" href="{u('projects.html')}" aria-label="Back to all projects">
+    {_S.format('<path d="M15 5 8 12l7 7"/>')}<span>Projects</span>
+  </a>
   <p class="pback"><a href="{u('projects.html')}">← Projects</a></p>
   <header class="phead">
     <span class="label">{e(meta)}</span>
