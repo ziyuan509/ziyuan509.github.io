@@ -280,8 +280,9 @@ main { padding-block: 3.5rem 5rem; }
   .profile__main  { order: 1; }
 }
 
+/* 竖版 3:4 —— 人像比正方形更适合作头像 */
 .profile__photo {
-  width: 100%; aspect-ratio: 1; object-fit: cover;
+  width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
   border: 1px solid var(--rule);
   background: var(--surface-2);
 }
@@ -297,11 +298,17 @@ main { padding-block: 3.5rem 5rem; }
 .profile__contact span:first-child { color: var(--rule-2); flex: none; }
 
 .profile__name { margin-bottom: .375rem; }
-.profile__role { color: var(--muted); font-size: 1rem; margin-bottom: 1.5rem; }
+/* 代词：跟在姓名后的小字，不抢主标题的重量 */
+.pronouns {
+  font-family: var(--mono); font-size: .75rem; font-weight: 500;
+  letter-spacing: .04em; color: var(--muted);
+  margin-left: .625rem; vertical-align: .42em; white-space: nowrap;
+}
+.profile__role { color: var(--muted); font-size: .9375rem; margin-bottom: 1.375rem; }
 .profile__role a { color: var(--muted); }
 .profile__role a:hover { color: var(--accent); }
-.profile__bio { color: var(--ink-2); font-size: 1.0625rem; }
-.profile__bio p { margin-bottom: 1em; }
+.profile__bio { color: var(--ink-2); font-size: .9688rem; line-height: 1.68; }
+.profile__bio p { margin-bottom: .875em; }
 
 /* 学术社交图标：一排直角方块。hover 时底色从下往上灌满，
    用 background-size 走行程，不用伪元素——省掉一层堆叠上下文。 */

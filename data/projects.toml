@@ -1,38 +1,51 @@
 # ─────────────────────────────────────────────────────────────
-#  作品 / 项目 —— 暂时留空，等你挑好要展示的再填
+#  作品 —— 内容依据 projects/ 下的四份作品集 PDF
 #
-#  Projects 落地页是一列到底的大图长条（桌面 944×472，2:1），
-#  目的是让人一眼看清做的是什么，所以【配图比文字重要】。
-#  没有 image 的条目会显示一个带首字母的大灰块。
+#  主图由 tools/make_project_images.py 从 PDF 里抽取并处理成 2:1。
+#  想换某张主图：改那个脚本里 PICKS 的 (页码, 图片序号)，重跑。
 #
-#  字段说明
-#    name      项目名
-#    tagline   一两句话说清它是什么、你做了什么
-#    kind      "game" | "tool" | "research" | "other"，用于分组标题
-#    year      字符串，显示在标题旁
-#    role      你在其中的角色
-#    tags      技术栈或关键词
-#    image     assets/img/ 下的路径，2:1 比例最佳
-#    featured  true 的会出现在首页的三格预览
-#    links     inline table，键名就是按钮上的字，顺序即显示顺序
-#
-#  照着这个格式往下加就行：
-#
-#  [[project]]
-#  name     = "Dissonant Affect"
-#  tagline  = "A VR affective news system that surfaces hidden emotional bias..."
-#  kind     = "research"
-#  year     = "2025"
-#  role     = "Design · Study · Build"
-#  tags     = ["Unity", "VR", "Research through design"]
-#  image    = "assets/img/projects/dissonant-affect.jpg"
-#  featured = true
-#  links    = { page = "#", video = "#", code = "#" }
-#
-#  几个现成的候选（都来自你的 CV，值得做成条目）：
-#   · Dissonant Affect —— VR 情感新闻系统（research）
-#   · Beyond the Screen —— 被动外围触控配件（research，CHI Workshop）
-#   · Companion Animal Monitoring —— 可穿戴多模态感知（research）
-#   · 教育机器人 / ROS 智能小车 —— 你自己公司的产品（other）
-#   · Aalto 期间的 Unity 原型 —— 如果有能公开的（game）
+#  ⚠ links 里的 "#" 是占位。有项目页 / 代码仓库 / 更多视频就填上，
+#     没有的就把那一项删掉——空链接点了什么都不会发生，反而减分。
 # ─────────────────────────────────────────────────────────────
+
+[[project]]
+name     = "Was Here: From Presence to Trace"
+tagline  = "An interactive projection installation in an RMIT corridor. Four frames trace how a passing body registers in digital systems — a live silhouette, a data trail, a mark on the environment, and finally an anonymous flow of information. Nobody has to stop or press anything; walking through is the whole interaction."
+kind     = "installation"
+year     = "2025"
+role     = "Concept · Algorithms · Fabrication"
+tags     = ["Projection", "Computer vision", "Passive interaction", "MDF"]
+image    = "assets/img/projects/was-here.jpg"
+featured = true
+
+[[project]]
+name     = "Telepathic Jar"
+tagline  = "A pair of IoT bottles that sense the weather where each person is and translate it into light and mist. Instead of showing raw sensor readings, it curates them — colour, brightness and fog become a quiet way to feel that someone far away is having a grey afternoon. Built on ESP32 with MQTT over TLS."
+kind     = "installation"
+year     = "2025"
+role     = "Concept · Hardware · Firmware"
+tags     = ["IoT", "ESP32", "MQTT", "Calm technology"]
+image    = "assets/img/projects/telepathic-jar.jpg"
+featured = true
+links    = { video = "https://youtu.be/Q9m8JZQBXWs" }
+
+[[project]]
+name     = "Dislocation Communication"
+tagline  = "A two-player narrative game for parents and children in single-parent families, built on the Satir family therapy model. One player describes a real conflict; the other uses an \"iceberg searchlight\" to read the layers of feeling underneath it. Repairing the room is how the game marks that you understood each other."
+kind     = "game"
+year     = "2024"
+role     = "UX Design · Game Design · Research"
+tags     = ["Unreal Engine", "Narrative design", "Mental health"]
+image    = "assets/img/projects/dislocation.jpg"
+featured = true
+links    = { video = "https://youtu.be/l0Uwg_d7UwY" }
+
+[[project]]
+name     = "TOUCH IT!"
+tagline  = "A passive, battery-free accessory that moves your finger off the screen. Borrowing the layout of a kalimba, metal tines act as extended electrodes so taps and swipes register without your hand covering what you are trying to read. The companion iOS prototype is written in Swift, with a threshold that separates a tap from a drag."
+kind     = "device"
+year     = "2024"
+role     = "Hardware · Software · UX"
+tags     = ["Swift", "Hardware prototyping", "Occlusion", "Mobile interaction"]
+image    = "assets/img/projects/touch-it.jpg"
+featured = true

@@ -3,5 +3,15 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# make_og.py 的 TTF 缓存，只在本地生成图片时用，不需要进仓库
+# make_og.py 的 TTF 缓存，只在本地生成图片时用
 tools/.fontcache/
+
+# 作品集原始 PDF —— 近 1 GB，单个文件超过 GitHub 100 MB 硬限制。
+# 只有 tools/make_project_images.py 处理出来的
+# assets/img/projects/*.jpg 会进仓库。
+# 开头的斜杠不能省：写成 projects/ 会连 assets/img/projects/ 一起忽略掉。
+/projects/
+
+# 原始素材（裁切前）。注意 assets/ 是整个目录发布到线上的，
+# 所以原图不能放那里，否则会被一起发布出去。
+/sources/

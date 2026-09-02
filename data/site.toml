@@ -9,6 +9,9 @@
 # 想在站上带出英文名的话，改成 "Ziyuan (Bryce) Qu" 即可——
 # 但注意 publications.toml 里 authors 数组中你自己的名字要跟这里完全一致才会自动加粗。
 name        = "Ziyuan Qu"
+# 显示在姓名旁边的小字。学术圈更常见的写法是 "he/him"（主格/宾格），
+# 你要的 "he/his" 也有人用，改这里一处即可；留空则不显示。
+pronouns    = "he/his"
 role        = "Master of Design Innovation and Technology"
 affiliation = "RMIT University"
 affiliation_url = "https://www.rmit.edu.au"
@@ -25,9 +28,8 @@ footer_note = "Built by hand. No trackers."
 
 # 首页自我介绍，一段一条，支持行内 HTML
 bio = [
-  "I am a Master's student in Design Innovation and Technology at <a href=\"https://www.rmit.edu.au\">RMIT University</a> in Melbourne, currently a visiting student at Monash University's <a href=\"https://exertiongameslab.org\">Exertion Games Lab</a>. I also go by Bryce.",
-  "My work sits between human-computer interaction and interaction design. I am drawn to the moments where a system's <strong>emotional and physiological signals</strong> become something a person can actually see, question, or act on — whether that is surfacing hidden bias in a news story, making privacy rules legible before they quietly take effect, or reading a body's state through wearable sensing.",
-  "Before Melbourne I studied industrial design in Shenzhen, designed game interfaces at NetEase, ran user research at Tencent, and started a small company building educational robotics. A semester of game design at Aalto sits somewhere in the middle of all that.",
+  "Master's student in Design Innovation and Technology at <a href=\"https://www.rmit.edu.au\">RMIT University</a>, Melbourne, currently visiting Monash University's <a href=\"https://exertiongameslab.org\">Exertion Games Lab</a>. I also go by Bryce.",
+  "I work between HCI and interaction design, on turning a system's <strong>emotional and physiological signals</strong> into something a person can see, question, or act on. Before Melbourne: industrial design in Shenzhen, game UX at NetEase, user research at Tencent, and a small company building educational robotics.",
 ]
 
 # ⚠ Scholar 和 ORCID 你还没给我，暂时留空。

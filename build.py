@@ -567,7 +567,7 @@ def render_index(site, pubs, projects, posts, news) -> str:
       <div class="profile__contact">{''.join(contact)}</div>
     </aside>
     <div class="profile__main">
-      <h1 class="profile__name">{e(me)}</h1>
+      <h1 class="profile__name">{e(me)}{f'<span class="pronouns">{e(site["pronouns"])}</span>' if site.get("pronouns") else ''}</h1>
       <p class="profile__role">{e(site.get('role', ''))}{' · ' + aff if aff else ''}</p>
       <div class="profile__bio">{bio}</div>
       {socials(site)}
@@ -599,8 +599,9 @@ def render_publications(site, pubs) -> str:
 
 
 def render_projects(site, projects) -> str:
-    order = ["game", "tool", "research", "other"]
-    names = {"game": "Games", "tool": "Tools", "research": "Research Artifacts", "other": "Other"}
+    order = ["installation", "device", "game", "tool", "research", "other"]
+    names = {"installation": "Installations", "device": "Devices", "game": "Games",
+             "tool": "Tools", "research": "Research", "other": "Other"}
     blocks = []
     for kind in order:
         items = [p for p in projects if p.get("kind", "other") == kind]
@@ -627,12 +628,8 @@ def render_cv(site, cv) -> str:
         blocks.append(f'<section class="cv-block"><div class="section__head"><h2>{e(sec["title"])}</h2></div>'
                       f'{"".join(rows)}</section>')
 
-    dl = ""
-    if has_asset(cv.get("pdf", "")):
-        dl = f'<div class="pills" style="margin-top:1rem"><a class="pill" href="{u(cv["pdf"])}">download pdf</a></div>'
-
     body = f"""<div class="wrap">
-  {page_head("curriculum vitae", "CV", "The full version lives in the PDF.", dl)}
+  {page_head("curriculum vitae", "CV")}
   {"".join(blocks) or '<p class="empty">No CV entries yet.</p>'}
 </div>"""
     return shell(site, title="CV", active="cv.html", body=body)
@@ -805,8 +802,6 @@ def main() -> int:
         warn.append("缺 og:image → 跑 python tools/make_og.py")
     if not has_asset(site.get("photo", "")):
         warn.append(f"缺头像 → 放一张方图到 {site.get('photo', 'assets/img/profile.jpg')}")
-    if not has_asset("assets/cv.pdf"):
-        warn.append("缺 assets/cv.pdf → CV 页的下载按钮不会出现")
     missing_img = [p["name"] for p in projects if not has_asset(p.get("image", ""))]
     if missing_img:
         warn.append(f"{len(missing_img)} 个作品没有配图 → Projects 页会显示占位块："
