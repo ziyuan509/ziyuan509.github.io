@@ -542,11 +542,18 @@ def render_index(site, pubs, projects, posts, news) -> str:
         for n in news)
 
     sel = [p for p in pubs if p.get("selected")][:3]
-    pubs_html = "".join(pub_entry(p, me) for p in sel) or '<p class="empty">No selected publications yet.</p>'
-
     feat = [p for p in projects if p.get("featured")][:3]
-    proj_html = "".join(project_card(p) for p in feat) or '<p class="empty">No selected projects yet.</p>'
 
+    def section(title: str, more: str, inner: str, wrap_cls: str = "") -> str:
+        """空的板块整块不渲染——首页宁可短，也不要一排只有标题的空壳。"""
+        if not inner:
+            return ""
+        body = f'<div class="{wrap_cls}">{inner}</div>' if wrap_cls else inner
+        return (f'<section class="section"><div class="section__head"><h2>{e(title)}</h2>'
+                f'<a class="section__more" href="{u(more)}">All →</a></div>{body}</section>')
+
+    pubs_html = "".join(pub_entry(p, me) for p in sel)
+    proj_html = "".join(project_card(p) for p in feat)
     posts_html = "".join(
         f'<div class="post-item"><div class="post-item__date">{e(p["date"])}</div>'
         f'<div><div class="post-item__title"><a href="{u("notes/" + p["slug"] + ".html")}">{e(p["title"])}</a></div>'
@@ -567,28 +574,10 @@ def render_index(site, pubs, projects, posts, news) -> str:
     </div>
   </div>
 
-  <section class="section">
-    <div class="section__head"><h2>News</h2></div>
-    <div class="news">{news_html}</div>
-  </section>
-
-  <section class="section">
-    <div class="section__head"><h2>Selected Publications</h2>
-      <a class="section__more" href="{u('publications.html')}">All →</a></div>
-    {pubs_html}
-  </section>
-
-  <section class="section">
-    <div class="section__head"><h2>Selected Projects</h2>
-      <a class="section__more" href="{u('projects.html')}">All →</a></div>
-    <div class="grid grid--3">{proj_html}</div>
-  </section>
-
-  <section class="section">
-    <div class="section__head"><h2>Recent Notes</h2>
-      <a class="section__more" href="{u('notes.html')}">All →</a></div>
-    <div class="post-list">{posts_html}</div>
-  </section>
+  {f'<section class="section"><div class="section__head"><h2>News</h2></div><div class="news">{news_html}</div></section>' if news_html else ''}
+  {section("Selected Publications", "publications.html", pubs_html)}
+  {section("Selected Projects", "projects.html", proj_html, "grid grid--3")}
+  {section("Recent Notes", "notes.html", posts_html, "post-list")}
 </div>"""
     return shell(site, title=me, active="index.html", body=body)
 

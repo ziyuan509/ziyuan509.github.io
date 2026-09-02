@@ -1,105 +1,103 @@
 # ─────────────────────────────────────────────────────────────
-#  在线简历  ⚠ 以下全部是示例条目，请整体替换
-#  注释是中文的（给你看的），会上网站的字段全部写英文。
+#  在线简历 —— 依据 CV_Ziyuan_Qu.pdf 填写
 #
-#  结构：[[section]] 是大栏目，下面挂若干 [[section.entry]]
-#    when  左栏时间，等宽字体、数字对齐
-#    what  加粗主行（学位 / 职位 / 奖项名）
-#    where 次行（机构 / 颁发方）
-#    note  可选说明，灰色小字
+#  没有收录的内容（有意为之）：
+#   · 手机号 —— 不建议放在公开网页上，会被爬虫抓去发垃圾信息
+#   · GPA / WAM —— 在线简历一般不列，需要的人会看 PDF 版
+#  两者都还在你的 PDF 里，网页版只做索引。
 # ─────────────────────────────────────────────────────────────
 
-# 简历 PDF 的路径，放在页头的下载按钮上；留空则不显示按钮
+# ⚠ 放一份【去掉手机号】的 PDF 到这个路径，页头的下载按钮才会出现
 pdf = "assets/cv.pdf"
 
 [[section]]
 title = "Education"
 
   [[section.entry]]
-  when  = "2024 — now"
-  what  = "Ph.D. in Human-Computer Interaction"
-  where = "Your University"
-  note  = "Advised by Prof. Someone. Player experience and creativity support tools."
+  when  = "Jul 2026 — Dec 2026"
+  what  = "Visiting Student, Exertion Games Lab"
+  where = "Monash University, Melbourne — Department of Human-Centred Computing"
+  note  = "Embodied interaction, exertion games, wearable and immersive technology, interactive prototyping, research through design."
 
   [[section.entry]]
-  when  = "2019 — 2023"
-  what  = "B.Sc. in Computer Science"
-  where = "Your Undergrad University"
-  note  = "Thesis: Seventeen Rooms, an experimental narrative game."
+  when  = "Feb 2025 — Dec 2026"
+  what  = "Master of Design Innovation and Technology"
+  where = "RMIT University, Melbourne — School of Design"
+  note  = "Expected Dec 2026. Human-computer interaction, design research, user experience research, affective and physiological interaction."
+
+  [[section.entry]]
+  when  = "Jan 2026 — Jun 2026"
+  what  = "Visiting Student, Game Design and Development"
+  where = "Aalto University, Helsinki"
+  note  = "Game development, Unity prototyping, interaction design, UX prototyping, spatial interaction."
+
+  [[section.entry]]
+  when  = "Sep 2019 — Jun 2023"
+  what  = "B.Eng. in Industrial Design"
+  where = "Shenzhen Technology University, Shenzhen"
+  note  = "Front-end development, UX and interaction design, embedded systems, prototyping, human-centered design."
 
 [[section]]
 title = "Experience"
 
   [[section.entry]]
-  when  = "Summer 2025"
-  what  = "Research Intern"
-  where = "Some Lab / Studio"
-  note  = "Usability research on level editors; part of this became the UIST paper."
+  when  = "May 2024 — now"
+  what  = "Founder"
+  where = "Shenzhen Inspiration Puzzle Design Co., Shenzhen"
+  note  = "Educational robotics and interactive technology for learning contexts. Designed the body structure of ROS-based smart carts and supported YOLO-based vision algorithm design."
 
   [[section.entry]]
-  when  = "2023 — 2024"
-  what  = "Gameplay Programmer"
-  where = "Some Indie Studio"
-  note  = "Combat feel and input buffering on one shipped title."
+  when  = "Jul 2023 — Dec 2023"
+  what  = "Research Assistant"
+  where = "Tencent, Shenzhen"
+  note  = "UX measurement for Tencent Meeting. Ran ~20 hours of user testing and 7 hours of semi-structured interviews; synthesised 24 interview records and 48 feedback items into 6 experience directions and 6 design recommendations."
+
+  [[section.entry]]
+  when  = "Sep 2022 — Jan 2023"
+  what  = "Game UX Design Intern"
+  where = "NetEase, Guangzhou"
+  note  = "UX team for Peak Speed, a AAA racing mobile title. Gameplay interaction flows, interface logic, information architecture and Figma prototypes; implemented interface designs in Unreal Engine 4 with designers, planners, artists and engineers."
 
 [[section]]
-title = "Awards & Honors"
+title = "Research"
+
+  [[section.entry]]
+  when  = "Oct 2025 — now"
+  what  = "Dissonant Affect: An Immersive Affective News System for Media Bias Cognition"
+  where = "RMIT University — independent project"
+  note  = "A VR affective news system asking whether immersive interaction can support critical thinking about media bias rather than only amplifying empathy. Proposes affective-semantic dissonance as a design pattern, using conflict between AI-analysed emotional tone and apparently neutral framing to expose hidden bias. Three-group between-subjects study: webpage baseline, 2D AI-text baseline, and the VR system."
+
+[[section]]
+title = "Awards"
 
   [[section.entry]]
   when  = "2026"
-  what  = "Best Paper Honorable Mention"
-  where = "ACM CHI"
-
-  [[section.entry]]
-  when  = "2026"
-  what  = "Ludum Dare 55 — Overall Top 100"
-  where = "Ludum Dare"
-
-  [[section.entry]]
-  when  = "2023"
-  what  = "Outstanding Undergraduate Thesis"
-  where = "Your Undergrad University"
+  what  = "Honorable Mention, CHI 2026"
+  where = "ACM SIGCHI"
+  note  = "For Mapping the Landscape of Affective Extended Reality."
 
 [[section]]
-title = "Teaching"
+title = "Memberships"
 
   [[section.entry]]
-  when  = "Spring 2026"
-  what  = "Teaching Assistant — Interaction Design"
-  where = "Your University"
-
-  [[section.entry]]
-  when  = "Fall 2025"
-  what  = "Teaching Assistant — Intro to Game Development"
-  where = "Your University"
-
-[[section]]
-title = "Service"
-
-  [[section.entry]]
-  when  = "2026"
-  what  = "Reviewer"
-  where = "CHI, CHI PLAY"
-
-  [[section.entry]]
-  when  = "2025 — now"
-  what  = "Student Volunteer"
-  where = "UIST"
+  when  = "2026 — now"
+  what  = "Student Member"
+  where = "ACM Special Interest Group on Computer-Human Interaction (SIGCHI)"
 
 [[section]]
 title = "Skills"
 
   [[section.entry]]
-  when  = "Engineering"
-  what  = "Unity (C#) · Godot (GDScript) · Python · TypeScript"
+  when  = "Research"
+  what  = "User testing · Semi-structured interviews · Qualitative synthesis · Between-subjects study design · Scoping review"
   where = ""
 
   [[section.entry]]
-  when  = "Research"
-  what  = "Controlled experiments · Semi-structured interviews · Thematic analysis · Eye tracking · Mixed methods"
+  when  = "Building"
+  what  = "Unity · Unreal Engine 4 · Figma · Front-end development · ROS · Hardware prototyping"
   where = ""
 
   [[section.entry]]
   when  = "Languages"
-  what  = "Chinese (native) · English (professional)"
+  what  = "Chinese (native) · English (academic and professional)"
   where = ""

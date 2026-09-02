@@ -1,91 +1,68 @@
 # ─────────────────────────────────────────────────────────────
-#  论文列表  ⚠ 以下全部是示例条目，请整体替换
+#  论文列表 —— 依据 CV_Ziyuan_Qu.pdf 填写
 #
-#  字段说明
-#    authors   数组。名字与 site.name 一致的那个会自动加粗
-#    venue     会议/期刊缩写，显示在最前面
-#    venue_full 展开的全称，鼠标悬停时显示
-#    year      整数，用来分组
-#    award     可选，行内小徽章
-#    selected  true 的会出现在首页“精选”里
-#    thumb     可选缩略图路径；留空会显示带首字母的占位块
-#    links     inline table，按书写顺序渲染成 pill 按钮
-#    abstract  可选，点 ABS 就地展开
-#    bibtex    可选，点 BIB 展开，带一键复制
+#  ⚠ 合作者我只有 CV 上的缩写，所以按 "Z. Lin" 这样写。
+#     建议换成全名，读者更容易认人、也更容易搜到合作者主页。
+#  ⚠ 你自己的名字必须与 site.toml 的 name 完全一致（"Ziyuan Qu"）才会自动加粗。
+#  ⚠ thumb 全部留空 → 显示带首字母的占位块。放图后会立刻变好看：
+#     assets/img/pubs/xxx.png，4:3 比例，桌面显示 184×138。
 # ─────────────────────────────────────────────────────────────
 
 [[pub]]
-title      = "Pacing the Tutorial: How Information Density Shapes Early Player Understanding"
-authors    = ["Ziyuan Qu", "A. Collaborator", "Someone Advisor"]
+title      = "Mapping the Landscape of Affective Extended Reality: A Scoping Review of Biodata-Driven Systems for Understanding and Sharing Emotions"
+authors    = ["Z. Lin", "A. Jing", "Ziyuan Qu", "F. Zambetta", "R. M. Kelly"]
 venue      = "CHI"
 venue_full = "ACM CHI Conference on Human Factors in Computing Systems"
 year       = 2026
-award      = "Best Paper Honorable Mention"
+award      = "Honorable Mention"
 selected   = true
 thumb      = ""
-links      = { pdf = "#", doi = "#", code = "#", video = "#" }
+links      = { doi = "https://doi.org/10.1145/3772318.3791012" }
 abstract   = """
-Tutorials are often treated as a single delivery of information, but player understanding is
-built in batches. In a 32-participant study we compare three pacing schemes and measure their
-effect on early input accuracy and subjective load. Splitting the same amount of information
-into more, shorter batches significantly lowers cognitive load, at the cost of a longer overall
-time to proficiency. We propose a simple model relating batch size to the mastery curve.
-"""
-bibtex     = """
-@inproceedings{qu2026pacing,
-  title     = {Pacing the Tutorial: How Information Density Shapes Early Player Understanding},
-  author    = {Qu, Ziyuan and Collaborator, A. and Advisor, Someone},
-  booktitle = {Proceedings of the CHI Conference on Human Factors in Computing Systems},
-  year      = {2026},
-  publisher = {ACM}
-}
+A scoping review of biodata-driven affective XR systems, covering sensing modalities, how emotion
+gets represented, recurring interaction design patterns, and the open challenges these raise for HCI.
 """
 
 [[pub]]
-title      = "Handing Back Complexity: A Study of Expert Workflows in Level Editors"
-authors    = ["B. Coauthor", "Ziyuan Qu", "Someone Advisor"]
-venue      = "UIST"
-venue_full = "ACM Symposium on User Interface Software and Technology"
-year       = 2025
+title      = "From One-Time Choices to Future Behavior: Revising Privacy Rules for AI Assistants in Shared Spaces"
+authors    = ["Ziyuan Qu", "J. Hu", "Z. Gao"]
+venue      = "UbiComp Companion"
+venue_full = "Companion of the 2026 ACM International Joint Conference on Pervasive and Ubiquitous Computing"
+year       = 2026
 selected   = true
 thumb      = ""
-links      = { pdf = "#", page = "#", code = "#" }
+links      = { doi = "https://doi.org/10.1145/3798063.3837404" }
 abstract   = """
-Level editors tend to trade approachability against sufficiency. We interviewed 14 senior level
-designers about how they route around the simplifying assumptions their tools make, and how they
-take complexity back into their own hands. We report four recurring workaround patterns.
-"""
-bibtex     = """
-@inproceedings{coauthor2025handing,
-  title     = {Handing Back Complexity: A Study of Expert Workflows in Level Editors},
-  author    = {Coauthor, B. and Qu, Ziyuan and Advisor, Someone},
-  booktitle = {Proceedings of the ACM Symposium on User Interface Software and Technology},
-  year      = {2025},
-  publisher = {ACM}
-}
+An editable privacy-rule interface for shared-space AI assistants, letting people manage
+bystander-related information across both immediate decisions and scoped future rules. A
+five-participant formative walkthrough surfaced ambiguity in how a saved rule applies to later
+situations, motivating explicit presentation of rule scope and future effects.
 """
 
 [[pub]]
-title      = "What Players Notice First: An Eye-Tracking Replication in Puzzle Onboarding"
-authors    = ["Ziyuan Qu", "C. Reader"]
-venue      = "CHI PLAY"
-venue_full = "ACM Symposium on Computer-Human Interaction in Play"
+title      = "Beyond the Screen: Passive Peripheral Touch for Reducing Occlusion in Mobile Interaction"
+authors    = ["Ziyuan Qu", "Y. Meng", "B. Liu", "Y. Guan"]
+venue      = "CHI Workshop"
+venue_full = "CHI 2026 Workshop — Cross-Sensory Futures: Rewiring Perception in HCI"
+year       = 2026
+award      = "Accepted"
+selected   = true
+thumb      = ""
+abstract   = """
+A passive, detachable peripheral touch accessory that reduces finger occlusion and improves
+accuracy in mobile interaction.
+"""
+
+[[pub]]
+title      = "Companion Animal Emotion and Health Status Monitoring Based on Wearable Multimodal Sensing"
+authors    = ["Y. Meng", "Ziyuan Qu", "Y. Guan"]
+venue      = "UbiComp/ISWC Companion"
+venue_full = "Companion of the 2025 ACM International Joint Conference on Pervasive and Ubiquitous Computing and the 2025 ACM International Symposium on Wearable Computers"
 year       = 2025
+award      = "Poster · Equal contribution"
 selected   = false
 thumb      = ""
-links      = { pdf = "#", doi = "#" }
 abstract   = """
-A direct replication of a classic visual guidance study, run on the opening level of a puzzle
-game. The main finding holds, but the effect is smaller than in the original and weakens
-noticeably once dynamic elements are present.
+A multimodal wearable sensing system for monitoring companion animal emotion and health,
+combining physiological, behavioral, and audio data.
 """
-
-[[pub]]
-title      = "A Lightweight Toolkit for Logging Playtest Sessions"
-authors    = ["Ziyuan Qu"]
-venue      = "CHI LBW"
-venue_full = "CHI Extended Abstracts — Late-Breaking Work"
-year       = 2024
-selected   = false
-thumb      = ""
-links      = { pdf = "#", code = "#" }

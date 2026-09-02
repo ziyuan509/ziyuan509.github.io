@@ -1,63 +1,38 @@
 # ─────────────────────────────────────────────────────────────
-#  作品 / 项目  ⚠ 以下全部是示例条目，请整体替换
-#  注释是中文的（给你看的），会上网站的字段全部写英文。
+#  作品 / 项目 —— 暂时留空，等你挑好要展示的再填
 #
-#    featured  true 的会出现在首页
-#    kind      "game" | "tool" | "research" | "other"，只用于分组标题
-#    links     inline table，按书写顺序渲染成 pill
+#  Projects 落地页是一列到底的大图长条（桌面 944×472，2:1），
+#  目的是让人一眼看清做的是什么，所以【配图比文字重要】。
+#  没有 image 的条目会显示一个带首字母的大灰块。
+#
+#  字段说明
+#    name      项目名
+#    tagline   一两句话说清它是什么、你做了什么
+#    kind      "game" | "tool" | "research" | "other"，用于分组标题
+#    year      字符串，显示在标题旁
+#    role      你在其中的角色
+#    tags      技术栈或关键词
+#    image     assets/img/ 下的路径，2:1 比例最佳
+#    featured  true 的会出现在首页的三格预览
+#    links     inline table，键名就是按钮上的字，顺序即显示顺序
+#
+#  照着这个格式往下加就行：
+#
+#  [[project]]
+#  name     = "Dissonant Affect"
+#  tagline  = "A VR affective news system that surfaces hidden emotional bias..."
+#  kind     = "research"
+#  year     = "2025"
+#  role     = "Design · Study · Build"
+#  tags     = ["Unity", "VR", "Research through design"]
+#  image    = "assets/img/projects/dissonant-affect.jpg"
+#  featured = true
+#  links    = { page = "#", video = "#", code = "#" }
+#
+#  几个现成的候选（都来自你的 CV，值得做成条目）：
+#   · Dissonant Affect —— VR 情感新闻系统（research）
+#   · Beyond the Screen —— 被动外围触控配件（research，CHI Workshop）
+#   · Companion Animal Monitoring —— 可穿戴多模态感知（research）
+#   · 教育机器人 / ROS 智能小车 —— 你自己公司的产品（other）
+#   · Aalto 期间的 Unity 原型 —— 如果有能公开的（game）
 # ─────────────────────────────────────────────────────────────
-
-[[project]]
-name     = "Lantern Hours"
-tagline  = "A small puzzle game about lighting lamps at night. Built in 48 hours for Ludum Dare, then finished over two weeks."
-kind     = "game"
-year     = "2026"
-role     = "Design · Code · Art"
-tags     = ["Godot", "GDScript", "Solo"]
-image    = ""
-featured = true
-links    = { play = "#", code = "#", devlog = "#" }
-
-[[project]]
-name     = "Playtest Logger"
-tagline  = "A lightweight Unity package for playtest sessions. One line to install; it turns inputs, state transitions and stuck points into a timeline and exports CSV."
-kind     = "tool"
-year     = "2025"
-role     = "Author"
-tags     = ["Unity", "C#", "Open source"]
-image    = ""
-featured = true
-links    = { code = "#", docs = "#" }
-
-[[project]]
-name     = "Tide / Untide"
-tagline  = "An asymmetric two-player prototype where each player sees the same sea at a different moment. The core mechanic could not carry twenty minutes, so it stayed a prototype."
-kind     = "game"
-year     = "2025"
-role     = "Design · Code"
-tags     = ["Unity", "Prototype", "Two-person team"]
-image    = ""
-featured = true
-links    = { video = "#", devlog = "#" }
-
-[[project]]
-name     = "Level Diff"
-tagline  = "Visual diffing for level files, built to answer one question: what did this revision actually change? Written while processing data for the UIST paper above."
-kind     = "tool"
-year     = "2024"
-role     = "Author"
-tags     = ["Python", "Research tooling"]
-image    = ""
-featured = false
-links    = { code = "#" }
-
-[[project]]
-name     = "Seventeen Rooms"
-tagline  = "Undergraduate thesis. An experimental text game that cuts its narrative into seventeen independent rooms, where the order you enter them decides what the story means."
-kind     = "game"
-year     = "2023"
-role     = "Everything"
-tags     = ["Twine", "Narrative", "Solo"]
-image    = ""
-featured = false
-links    = { play = "#" }

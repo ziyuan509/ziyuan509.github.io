@@ -1,68 +1,65 @@
 # ─────────────────────────────────────────────────────────────
 #  站点身份与首页内容
-#  ⚠ 全文都是占位内容，请逐项替换成你自己的信息。
-#  注释是中文的（给你看的），但所有会上网站的字段都写英文。
+#  内容依据 CV_Ziyuan_Qu.pdf 填写。带 ⚠ 的地方需要你自己确认或补充。
+#  注释是中文的（给你看的），所有会上网站的字段值都写英文。
 # ─────────────────────────────────────────────────────────────
 
 [site]
-# ⚠ 姓名是我从 git config 的 "Ziyuan" 加邮箱推的，多半不准，务必改
+# 用发表署名的写法，跟 Google Scholar / 论文上的 "Qu, Z." 对得上。
+# 想在站上带出英文名的话，改成 "Ziyuan (Bryce) Qu" 即可——
+# 但注意 publications.toml 里 authors 数组中你自己的名字要跟这里完全一致才会自动加粗。
 name        = "Ziyuan Qu"
-role        = "PhD Student, Human-Computer Interaction"
-affiliation = "Your University"
-affiliation_url = "https://example.edu"
-email       = "your.name@example.edu"          # ⚠ 换成你愿意公开的邮箱
-location    = "City, Country"
-photo       = "assets/img/profile.jpg"          # 放一张方形照片到这个路径
+role        = "Master of Design Innovation and Technology"
+affiliation = "RMIT University"
+affiliation_url = "https://www.rmit.edu.au"
+email       = "ziyuan.qu@student.rmit.edu.au"
+location    = "Melbourne, Australia"
+photo       = "assets/img/profile.jpg"          # ⚠ 放一张方形照片到这个路径
 
-# 部署到 https://<user>.github.io 时留空；
-# 部署到 https://<user>.github.io/Per-Website 时填 "/Per-Website"
 base_url    = ""
-
-# ⚠ 站点的完整线上地址，不要带结尾斜杠。
-# 留空的话 canonical、og:url 和 sitemap.xml 都不会生成——搜索引擎收录会受影响，
-# 所以域名一定下来就把它填上，例如 "https://ziyuanqu.com"
 url         = "https://ziyuanqu.dev"
 
-# 浏览器标签页与搜索结果里的描述
-description = "Ziyuan Qu — HCI researcher and game developer working on player experience, interactive systems, and tools for creators."
+description = "Ziyuan Qu — HCI and interaction design researcher at RMIT University, working on affective interaction, immersive systems, and playful embodied experiences."
 
-# 页脚那行小字
 footer_note = "Built by hand. No trackers."
 
 # 首页自我介绍，一段一条，支持行内 HTML
 bio = [
-  "I am a PhD student in human-computer interaction at <a href=\"https://example.edu\">Your University</a>, advised by Prof. Someone. My work is about <strong>how players build an understanding of a system</strong> — from the pacing of a tutorial to how authoring tools hand complexity back to the people using them.",
-  "Before research, and still on weekends, I make games. The two feed each other: designing a level forces me to state an interaction assumption precisely, and running a study tells me which of those assumptions was wrong.",
-  "I am looking for a 2027 internship in player experience research or creativity support tools. Always happy to hear from people working on either.",
+  "I am a Master's student in Design Innovation and Technology at <a href=\"https://www.rmit.edu.au\">RMIT University</a> in Melbourne, currently a visiting student at Monash University's <a href=\"https://exertiongameslab.org\">Exertion Games Lab</a>. I also go by Bryce.",
+  "My work sits between human-computer interaction and interaction design. I am drawn to the moments where a system's <strong>emotional and physiological signals</strong> become something a person can actually see, question, or act on — whether that is surfacing hidden bias in a news story, making privacy rules legible before they quietly take effect, or reading a body's state through wearable sensing.",
+  "Before Melbourne I studied industrial design in Shenzhen, designed game interfaces at NetEase, ran user research at Tencent, and started a small company building educational robotics. A semester of game design at Aalto sits somewhere in the middle of all that.",
 ]
 
-# 学术社交图标。kind 可选：
-#   email / scholar / github / orcid / arxiv / dblp
-#   twitter / bluesky / mastodon / linkedin / youtube / itch / cv / rss
+# ⚠ Scholar 和 ORCID 你还没给我，暂时留空。
+# 有了之后取消注释、填上地址即可，图标会自动出现。
+#   { kind = "scholar", url = "https://scholar.google.com/citations?user=..." },
+#   { kind = "orcid",   url = "https://orcid.org/0000-0000-0000-0000" },
+# CV 那一条等你放好 assets/cv.pdf（去掉手机号的版本）再取消注释。
+#   { kind = "cv",      url = "assets/cv.pdf" },
 social = [
-  { kind = "email",   url = "mailto:your.name@example.edu" },
-  { kind = "scholar", url = "https://scholar.google.com/citations?user=XXXX" },
-  { kind = "github",  url = "https://github.com/your-handle" },
-  { kind = "orcid",   url = "https://orcid.org/0000-0000-0000-0000" },
-  { kind = "itch",    url = "https://your-handle.itch.io" },
-  { kind = "cv",      url = "assets/cv.pdf" },
+  { kind = "email",  url = "mailto:ziyuan.qu@student.rmit.edu.au" },
+  { kind = "github", url = "https://github.com/ziyuan509" },
 ]
 
 # ── 首页 News ───────────────────────────────────────────────
-# 只留最近 5–8 条；日期用字符串，怎么写就怎么显示
+# ⚠ 两篇论文的具体月份我不知道，按实际发表/接收时间改。
 
 [[news]]
-date = "2026.08"
-text = "Started building this site."
+date = "2026.07"
+text = "Joined the <a href=\"https://exertiongameslab.org\">Exertion Games Lab</a> at Monash University as a visiting student."
 
 [[news]]
-date = "2026.06"
-text = "Submitted a short paper on tutorial pacing to <em>CHI Play</em>."
+date = "2026"
+text = "<em>Mapping the Landscape of Affective Extended Reality</em> received an <strong>Honorable Mention</strong> at CHI '26."
 
 [[news]]
-date = "2026.04"
-text = "Took part in Ludum Dare — a puzzle prototype in 48 hours, <a href=\"projects.html\">here</a>."
+date = "2026"
+text = "<em>From One-Time Choices to Future Behavior</em> appeared at UbiComp '26 Companion in Shanghai."
 
 [[news]]
 date = "2026.01"
-text = "Began working with Prof. Someone on creativity support tools."
+text = "Started a visiting semester in Game Design and Development at Aalto University, Helsinki."
+
+[[news]]
+date = "2025.10"
+text = "Began <em>Dissonant Affect</em>, an independent project on immersive affective news and media bias cognition."
