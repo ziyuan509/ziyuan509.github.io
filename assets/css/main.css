@@ -213,8 +213,7 @@ main { padding-block: 3.5rem 5rem; }
 }
 .nav__links a:hover { color: var(--ink); }
 
-/* 当前页和 hover 用同一条下划线，区别只在它是否已经擦到位。
-   scaleX 只跑在合成层上，所以擦入是真正平滑的。 */
+/* 当前页和 hover 用同一条下划线，区别只在它是否已经淡入。 */
 .nav__links a::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: -.0625rem;
   height: 2px; background: var(--accent);
@@ -514,8 +513,10 @@ main { padding-block: 3.5rem 5rem; }
   background: var(--surface); border: 1px solid var(--rule);
   transition: border-color var(--t) var(--ease);
 }
+/* 紫条放底边而不是顶边。顶边紧挨着封面图，图一深色就整条糊进去；
+   底边贴的是卡片正文区的背景（浅色白 / 深色 #17141e），两种主题都看得清。 */
 .card::after {
-  content: ""; position: absolute; inset: -1px -1px auto -1px; height: 2px;
+  content: ""; position: absolute; inset: auto -1px -1px -1px; height: 2px;
   background: var(--accent);
   opacity: 0;
   transition: opacity var(--t2) var(--ease);
