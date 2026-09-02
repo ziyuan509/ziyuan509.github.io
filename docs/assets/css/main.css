@@ -801,10 +801,16 @@ main { padding-block: 3.5rem 5rem; }
 .pfloat span { display: none; }
 
 /* 宽到侧边有空白时，移回左上，带上文字 */
-@media (min-width: 76rem) {
-  /* 宽度跟着内容走，不写死——换文案或换字体都不会再挤出边框 */
+@media (min-width: 78rem) {
+  /* 贴着正文栏外侧，而不是贴视口边缘——贴边缘时离正文太远，眼睛扫不到。
+     用 right 而不是 left 定位，这样按钮右边缘固定在「正文左边界 - 1.5rem」处，
+     宽度可以自由伸缩（见下面的 max-content）而不会影响这个间距。
+       正文左边界 = 50% - var(--wide)/2 + 1.5rem（wrap 的内边距）
+       right 偏移 = 100% - (正文左边界 - 间距) = 50% + var(--wide)/2 + 0 */
   .pfloat {
-    left: 1.5rem; top: calc(var(--nav-h) + 2rem); bottom: auto;
+    left: auto;
+    right: calc(50% + var(--wide) / 2);
+    top: calc(var(--nav-h) + 2rem); bottom: auto;
     width: max-content; min-width: 3.25rem; height: auto;
     padding: .75rem .6875rem; gap: .4375rem;
     border-color: var(--rule); box-shadow: none;
