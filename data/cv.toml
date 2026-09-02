@@ -6,8 +6,16 @@
 #   · GPA / WAM —— 在线简历一般不列，需要的人会看 PDF 版
 #  两者都还在你的 PDF 里，网页版只做索引。
 #
-#  Education 各条的 logo 取自各校官网的官方图标（RMIT/Aalto/Monash 的
-#  apple-touch-icon、SZTU 的官方 SVG 校徽、Exertion Games Lab 的站点图标）。
+#  logo 来源：RMIT / Aalto / Monash 用各校官网的 apple-touch-icon，
+#  SZTU 用官网 SVG 校徽，Exertion Games Lab 用站点图标，
+#  腾讯 / 网易用 Wikimedia 上的官方矢量标识。
+#  SZTU 与网易的 SVG 都裁过 viewBox，只保留徽章/图形标，去掉了文字部分——
+#  40px 的格子里带文字的横向长条标会缩到几像素高，完全读不出来。
+#
+#  logo_invert_dark 的判断依据是【实际对比度】而不是亮度：
+#  饱和色（RMIT 红 3.8:1、网易红 3.2:1）在深底上靠色相就够看；
+#  近中性的深色（腾讯黑 1.2:1、SZTU 深蓝 1.7:1）才需要反相。
+#  invert(1) + hue-rotate(180deg) 只翻明度、保留色相。
 # ─────────────────────────────────────────────────────────────
 
 # CV 只在网页上展示，不提供 PDF 下载。
@@ -51,12 +59,17 @@ title = "Experience"
 
   [[section.entry]]
   when  = "Jul 2023 — Dec 2023"
+  # 腾讯中文字标是纯黑，深色主题下 1.2:1 完全看不见，需要反相成白
+  logo  = "assets/img/logos/tencent.svg"
+  logo_invert_dark = true
   what  = "Research Assistant"
   where = "Tencent, Shenzhen"
   note  = "UX measurement for Tencent Meeting. Ran ~20 hours of user testing and 7 hours of semi-structured interviews; synthesised 24 interview records and 48 feedback items into 6 experience directions and 6 design recommendations."
 
   [[section.entry]]
   when  = "Sep 2022 — Jan 2023"
+  # 网易红 #C22B2F：浅色 5.7:1、深色 3.2:1，两种主题都够，不反相
+  logo  = "assets/img/logos/netease.svg"
   what  = "Game UX Design Intern"
   where = "NetEase, Guangzhou"
   note  = "UX team for Peak Speed, a AAA racing mobile title. Gameplay interaction flows, interface logic, information architecture and Figma prototypes; implemented interface designs in Unreal Engine 4 with designers, planners, artists and engineers."
