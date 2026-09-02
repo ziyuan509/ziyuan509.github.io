@@ -36,7 +36,7 @@ CONTENT = ROOT / "content"
 ASSETS = ROOT / "assets"
 OUT = ROOT / "docs"
 
-# 导航栏。想换成中文标签，改这里的第一个元素即可。
+# 导航栏全量定义。想换成中文标签，改这里的第一个元素即可。
 NAV = [
     ("about", "index.html"),
     ("publications", "publications.html"),
@@ -45,6 +45,11 @@ NAV = [
     ("notes", "notes.html"),
     ("games", "games.html"),
 ]
+
+# 实际渲染用的导航。main() 会把没有内容的栏目（notes / games）剔掉——
+# 空页面挂在导航里只会让人白点一次。往 content/posts/ 或 games.toml
+# 加了内容之后，页面和导航项会自动回来，不用改代码。
+NAV_ACTIVE: list[tuple[str, str]] = list(NAV)
 
 BASE = ""  # 由 site.toml 的 base_url 覆盖
 
@@ -270,7 +275,7 @@ def shell(site: dict, *, title: str, active: str, body: str,
     full_title = title if title == site["name"] else f"{title} · {site['name']}"
     description = desc or site.get("description", "")
     links = []
-    for label, href in NAV:
+    for label, href in NAV_ACTIVE:
         cur = ' aria-current="page"' if href == active else ""
         links.append(f'<a href="{u(href)}"{cur}>{e(label)}</a>')
 
@@ -619,13 +624,22 @@ def render_projects(site, projects) -> str:
 def render_cv(site, cv) -> str:
     blocks = []
     for sec in cv.get("section", []):
+        entries = sec.get("entry", [])
+        # 整个栏目里只要有一条带 logo，就给所有行加上 logo 列，保证左边缘对齐
+        has_logo = any(has_asset(en.get("logo", "")) for en in entries)
         rows = []
-        for en in sec.get("entry", []):
+        for en in entries:
             where = f'<span class="cv-row__where">{e(en["where"])}</span>' if en.get("where") else ""
             note = f'<div class="cv-row__note">{e(en["note"])}</div>' if en.get("note") else ""
-            rows.append(f'<div class="cv-row"><div class="cv-row__when">{e(en.get("when", ""))}</div>'
+            logo = ""
+            if has_logo:
+                inner = (f'<img src="{e(u(en["logo"]))}" alt="" loading="lazy">'
+                         if has_asset(en.get("logo", "")) else "")
+                logo = f'<div class="cv-row__logo" aria-hidden="true">{inner}</div>'
+            rows.append(f'<div class="cv-row">{logo}<div class="cv-row__when">{e(en.get("when", ""))}</div>'
                         f'<div class="cv-row__what"><strong>{e(en.get("what", ""))}</strong>{where}{note}</div></div>')
-        blocks.append(f'<section class="cv-block"><div class="section__head"><h2>{e(sec["title"])}</h2></div>'
+        cls = "cv-block cv-block--logos" if has_logo else "cv-block"
+        blocks.append(f'<section class="{cls}"><div class="section__head"><h2>{e(sec["title"])}</h2></div>'
                       f'{"".join(rows)}</section>')
 
     body = f"""<div class="wrap">
@@ -667,12 +681,7 @@ def render_404(site) -> str:
     body = f"""<div class="wrap">
   {page_head("404", "Page not found",
              "That address does not exist — it may have moved, or the link may be wrong.")}
-  <div class="pills">
-    <a class="pill" href="{u('index.html')}">home</a>
-    <a class="pill" href="{u('publications.html')}">publications</a>
-    <a class="pill" href="{u('projects.html')}">projects</a>
-    <a class="pill" href="{u('notes.html')}">notes</a>
-  </div>
+  <div class="pills">{"".join(f'<a class="pill" href="{u(h)}">{e(l)}</a>' for l, h in NAV_ACTIVE)}</div>
 </div>"""
     return shell(site, title="Page not found", active="", body=body, path="404.html")
 
@@ -757,15 +766,25 @@ def main() -> int:
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
     shutil.copytree(ASSETS, OUT / "assets")
 
+    global NAV_ACTIVE
+    empty = set()
+    if not posts:
+        empty.add("notes.html")
+    if not plays:
+        empty.add("games.html")
+    NAV_ACTIVE = [(l, h) for l, h in NAV if h not in empty]
+
     pages = {
         "index.html": render_index(site, pubs, projects, posts, news),
         "publications.html": render_publications(site, pubs),
         "projects.html": render_projects(site, projects),
         "cv.html": render_cv(site, cv),
-        "notes.html": render_notes(site, posts),
-        "games.html": render_games(site, plays),
         "404.html": render_404(site),
     }
+    if posts:
+        pages["notes.html"] = render_notes(site, posts)
+    if plays:
+        pages["games.html"] = render_games(site, plays)
     for name, content in pages.items():
         (OUT / name).write_text(content, encoding="utf-8")
 

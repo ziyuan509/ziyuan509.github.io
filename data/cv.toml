@@ -5,6 +5,9 @@
 #   · 手机号 —— 不建议放在公开网页上，会被爬虫抓去发垃圾信息
 #   · GPA / WAM —— 在线简历一般不列，需要的人会看 PDF 版
 #  两者都还在你的 PDF 里，网页版只做索引。
+#
+#  Education 各条的 logo 取自各校官网的官方图标（RMIT/Aalto/Monash 的
+#  apple-touch-icon、SZTU 的官方 SVG 校徽、Exertion Games Lab 的站点图标）。
 # ─────────────────────────────────────────────────────────────
 
 # CV 只在网页上展示，不提供 PDF 下载。
@@ -14,24 +17,29 @@ title = "Education"
 
   [[section.entry]]
   when  = "Jul 2026 — Dec 2026"
+  # 这一条用的是实验室标。想换成 Monash 校徽就改成 logos/monash.png
+  logo  = "assets/img/logos/exertion-games-lab.png"
   what  = "Visiting Student, Exertion Games Lab"
   where = "Monash University, Melbourne — Department of Human-Centred Computing"
   note  = "Embodied interaction, exertion games, wearable and immersive technology, interactive prototyping, research through design."
 
   [[section.entry]]
   when  = "Feb 2025 — Dec 2026"
+  logo  = "assets/img/logos/rmit.png"
   what  = "Master of Design Innovation and Technology"
   where = "RMIT University, Melbourne — School of Design"
   note  = "Expected Dec 2026. Human-computer interaction, design research, user experience research, affective and physiological interaction."
 
   [[section.entry]]
   when  = "Jan 2026 — Jun 2026"
+  logo  = "assets/img/logos/aalto.png"
   what  = "Visiting Student, Game Design and Development"
   where = "Aalto University, Helsinki"
   note  = "Game development, Unity prototyping, interaction design, UX prototyping, spatial interaction."
 
   [[section.entry]]
   when  = "Sep 2019 — Jun 2023"
+  logo  = "assets/img/logos/sztu.svg"
   what  = "B.Eng. in Industrial Design"
   where = "Shenzhen Technology University, Shenzhen"
   note  = "Front-end development, UX and interaction design, embedded systems, prototyping, human-centered design."

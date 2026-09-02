@@ -32,15 +32,16 @@ bio = [
   "I work between HCI and interaction design, on turning a system's <strong>emotional and physiological signals</strong> into something a person can see, question, or act on. Before Melbourne: industrial design in Shenzhen, game UX at NetEase, user research at Tencent, and a small company building educational robotics.",
 ]
 
-# ⚠ Scholar 和 ORCID 你还没给我，暂时留空。
-# 有了之后取消注释、填上地址即可，图标会自动出现。
+# ⚠ Google Scholar 你还没给我。建好个人主页后取消下面这行注释填上即可：
 #   { kind = "scholar", url = "https://scholar.google.com/citations?user=..." },
-#   { kind = "orcid",   url = "https://orcid.org/0000-0000-0000-0000" },
-# CV 那一条等你放好 assets/cv.pdf（去掉手机号的版本）再取消注释。
-#   { kind = "cv",      url = "assets/cv.pdf" },
+#
+# 注意 ORCID 用的是公开地址（orcid.org/<你的ID>），
+# 不是你发我的那个带 my-orcid?orcid= 的登录后编辑地址——那个别人打不开。
 social = [
-  { kind = "email",  url = "mailto:ziyuan.qu@student.rmit.edu.au" },
-  { kind = "github", url = "https://github.com/ziyuan509" },
+  { kind = "email",    url = "mailto:ziyuan.qu@student.rmit.edu.au" },
+  { kind = "orcid",    url = "https://orcid.org/0009-0000-7714-9784" },
+  { kind = "github",   url = "https://github.com/ziyuan509" },
+  { kind = "linkedin", url = "https://www.linkedin.com/in/ziyuan-qu-2a1654360/" },
 ]
 
 # ── 首页 News ───────────────────────────────────────────────

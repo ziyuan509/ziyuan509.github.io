@@ -581,8 +581,23 @@ main { padding-block: 3.5rem 5rem; }
 .cv-row__what strong { display: block; font-size: 1rem; font-weight: 600; }
 .cv-row__where { font-size: .9375rem; color: var(--ink-2); }
 .cv-row__note { font-size: .9063rem; color: var(--muted); margin-top: .1875rem; }
+
+/* 机构徽标。多数徽标本身是深色或透明底，所以固定白色底板——
+   否则深色主题下 Aalto 那种黑底标会整块糊进背景里。 */
+.cv-block--logos .cv-row { grid-template-columns: 2.5rem 8.5rem 1fr; gap: 1rem 1.125rem; }
+.cv-row__logo {
+  width: 2.5rem; height: 2.5rem; margin-top: .0625rem;
+  display: grid; place-items: center;
+  background: #fff; border: 1px solid var(--rule);
+}
+.cv-row__logo img { max-width: 76%; max-height: 76%; object-fit: contain; }
+
 @media (max-width: 32rem) {
   .cv-row { grid-template-columns: 1fr; gap: .25rem; }
+  /* 窄屏改成徽标在左、文字在右的两列，时间行跨满 */
+  .cv-block--logos .cv-row { grid-template-columns: 2.5rem 1fr; gap: .25rem .875rem; }
+  .cv-block--logos .cv-row__when { grid-column: 2; }
+  .cv-block--logos .cv-row__what { grid-column: 2; }
 }
 
 /* --- 13. 文章列表 / 正文 ------------------------------------------------ */
