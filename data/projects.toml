@@ -1,0 +1,63 @@
+# ─────────────────────────────────────────────────────────────
+#  作品 / 项目  ⚠ 以下全部是示例条目，请整体替换
+#  注释是中文的（给你看的），会上网站的字段全部写英文。
+#
+#    featured  true 的会出现在首页
+#    kind      "game" | "tool" | "research" | "other"，只用于分组标题
+#    links     inline table，按书写顺序渲染成 pill
+# ─────────────────────────────────────────────────────────────
+
+[[project]]
+name     = "Lantern Hours"
+tagline  = "A small puzzle game about lighting lamps at night. Built in 48 hours for Ludum Dare, then finished over two weeks."
+kind     = "game"
+year     = "2026"
+role     = "Design · Code · Art"
+tags     = ["Godot", "GDScript", "Solo"]
+image    = ""
+featured = true
+links    = { play = "#", code = "#", devlog = "#" }
+
+[[project]]
+name     = "Playtest Logger"
+tagline  = "A lightweight Unity package for playtest sessions. One line to install; it turns inputs, state transitions and stuck points into a timeline and exports CSV."
+kind     = "tool"
+year     = "2025"
+role     = "Author"
+tags     = ["Unity", "C#", "Open source"]
+image    = ""
+featured = true
+links    = { code = "#", docs = "#" }
+
+[[project]]
+name     = "Tide / Untide"
+tagline  = "An asymmetric two-player prototype where each player sees the same sea at a different moment. The core mechanic could not carry twenty minutes, so it stayed a prototype."
+kind     = "game"
+year     = "2025"
+role     = "Design · Code"
+tags     = ["Unity", "Prototype", "Two-person team"]
+image    = ""
+featured = true
+links    = { video = "#", devlog = "#" }
+
+[[project]]
+name     = "Level Diff"
+tagline  = "Visual diffing for level files, built to answer one question: what did this revision actually change? Written while processing data for the UIST paper above."
+kind     = "tool"
+year     = "2024"
+role     = "Author"
+tags     = ["Python", "Research tooling"]
+image    = ""
+featured = false
+links    = { code = "#" }
+
+[[project]]
+name     = "Seventeen Rooms"
+tagline  = "Undergraduate thesis. An experimental text game that cuts its narrative into seventeen independent rooms, where the order you enter them decides what the story means."
+kind     = "game"
+year     = "2023"
+role     = "Everything"
+tags     = ["Twine", "Narrative", "Solo"]
+image    = ""
+featured = false
+links    = { play = "#" }

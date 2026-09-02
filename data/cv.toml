@@ -1,0 +1,105 @@
+# ─────────────────────────────────────────────────────────────
+#  在线简历  ⚠ 以下全部是示例条目，请整体替换
+#  注释是中文的（给你看的），会上网站的字段全部写英文。
+#
+#  结构：[[section]] 是大栏目，下面挂若干 [[section.entry]]
+#    when  左栏时间，等宽字体、数字对齐
+#    what  加粗主行（学位 / 职位 / 奖项名）
+#    where 次行（机构 / 颁发方）
+#    note  可选说明，灰色小字
+# ─────────────────────────────────────────────────────────────
+
+# 简历 PDF 的路径，放在页头的下载按钮上；留空则不显示按钮
+pdf = "assets/cv.pdf"
+
+[[section]]
+title = "Education"
+
+  [[section.entry]]
+  when  = "2024 — now"
+  what  = "Ph.D. in Human-Computer Interaction"
+  where = "Your University"
+  note  = "Advised by Prof. Someone. Player experience and creativity support tools."
+
+  [[section.entry]]
+  when  = "2019 — 2023"
+  what  = "B.Sc. in Computer Science"
+  where = "Your Undergrad University"
+  note  = "Thesis: Seventeen Rooms, an experimental narrative game."
+
+[[section]]
+title = "Experience"
+
+  [[section.entry]]
+  when  = "Summer 2025"
+  what  = "Research Intern"
+  where = "Some Lab / Studio"
+  note  = "Usability research on level editors; part of this became the UIST paper."
+
+  [[section.entry]]
+  when  = "2023 — 2024"
+  what  = "Gameplay Programmer"
+  where = "Some Indie Studio"
+  note  = "Combat feel and input buffering on one shipped title."
+
+[[section]]
+title = "Awards & Honors"
+
+  [[section.entry]]
+  when  = "2026"
+  what  = "Best Paper Honorable Mention"
+  where = "ACM CHI"
+
+  [[section.entry]]
+  when  = "2026"
+  what  = "Ludum Dare 55 — Overall Top 100"
+  where = "Ludum Dare"
+
+  [[section.entry]]
+  when  = "2023"
+  what  = "Outstanding Undergraduate Thesis"
+  where = "Your Undergrad University"
+
+[[section]]
+title = "Teaching"
+
+  [[section.entry]]
+  when  = "Spring 2026"
+  what  = "Teaching Assistant — Interaction Design"
+  where = "Your University"
+
+  [[section.entry]]
+  when  = "Fall 2025"
+  what  = "Teaching Assistant — Intro to Game Development"
+  where = "Your University"
+
+[[section]]
+title = "Service"
+
+  [[section.entry]]
+  when  = "2026"
+  what  = "Reviewer"
+  where = "CHI, CHI PLAY"
+
+  [[section.entry]]
+  when  = "2025 — now"
+  what  = "Student Volunteer"
+  where = "UIST"
+
+[[section]]
+title = "Skills"
+
+  [[section.entry]]
+  when  = "Engineering"
+  what  = "Unity (C#) · Godot (GDScript) · Python · TypeScript"
+  where = ""
+
+  [[section.entry]]
+  when  = "Research"
+  what  = "Controlled experiments · Semi-structured interviews · Thematic analysis · Eye tracking · Mixed methods"
+  where = ""
+
+  [[section.entry]]
+  when  = "Languages"
+  what  = "Chinese (native) · English (professional)"
+  where = ""

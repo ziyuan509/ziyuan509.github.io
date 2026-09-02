@@ -1,0 +1,91 @@
+# ─────────────────────────────────────────────────────────────
+#  游戏手记  ⚠ 以下全部是示例条目，请整体替换
+#  注释是中文的（给你看的），会上网站的字段全部写英文。
+#
+#  定位：不是评测，是"作为做游戏的人，我从这一款里带走了什么"。
+#  每条建议控制在 3–5 句，lesson 一句话说透。
+#
+#    rating  0–5，渲染成五个小方块（不是星星）
+#    lesson  可选。留空则不显示那条带竖线的引文
+#    cover   可选封面图路径
+# ─────────────────────────────────────────────────────────────
+
+[[play]]
+title    = "Outer Wilds"
+platform = "PC"
+year     = 2019
+played   = "2026.07"
+rating   = 5
+cover    = ""
+tags     = ["Exploration", "Narrative", "Time loop"]
+take     = """
+It takes progress out of the save file entirely and puts it in your head. The twenty-two minute
+loop resets the world but never resets your understanding. The bravest part is that it will let
+you sit stuck for hours with no prompt at all, on the assumption that you can find your own way
+out — and it is right.
+"""
+lesson   = "Put growth in the player's understanding rather than the character's stats and you no longer need a tutorial system at all."
+
+[[play]]
+title    = "Baba Is You"
+platform = "PC / Switch"
+year     = 2019
+played   = "2026.05"
+rating   = 5
+cover    = ""
+tags     = ["Puzzle", "Rule systems"]
+take     = """
+The rules themselves are objects you can push. That sentence is short, but it means every level
+teaches you to re-read something you just learned. What I keep coming back to is how it handles
+being stuck: the map is open, so you can walk away, and the puzzle is often solved by the time
+you come back.
+"""
+lesson   = "Letting a player shelve a puzzle protects the moment of solving it better than any hint button does."
+
+[[play]]
+title    = "Return of the Obra Dinn"
+platform = "PC"
+year     = 2018
+played   = "2026.02"
+rating   = 5
+cover    = ""
+tags     = ["Deduction", "Information design"]
+take     = """
+Its verification rule is the example I reach for most often in user research: it confirms your
+answers only in batches of three. That number sits at exactly the right place — large enough to
+block brute force, small enough that you still get feedback while you are on the right track. A
+single numeric decision carries the whole game's sense of trust.
+"""
+lesson   = "The granularity of feedback is a design variable, not an implementation detail."
+
+[[play]]
+title    = "Tunic"
+platform = "PC"
+year     = 2022
+played   = "2025.11"
+rating   = 4
+cover    = ""
+tags     = ["Action adventure", "Manual"]
+take     = """
+Making the instruction manual a collectible is executed frighteningly well. But late in the game
+I did feel the friction: once not understanding stops being fun and starts being work, there is
+no path to step down. I bounced off twice and only came back the third time with a walkthrough
+open — probably a cost it chose deliberately.
+"""
+lesson   = "Deliberate obscurity needs a relief valve, or it filters out more than just impatient players."
+
+[[play]]
+title    = "Chants of Sennaar"
+platform = "PC"
+year     = 2023
+played   = "2025.08"
+rating   = 4
+cover    = ""
+tags     = ["Puzzle", "Language"]
+take     = """
+Filling in a notebook is the verification mechanic, which forces your hypotheses to become
+explicit. That step matters: because the guess is written down, the system can check it and you
+can go back and look at it. As a researcher I half want to lift this interaction straight into
+an interview tool.
+"""
+lesson   = "Have the player write the guess down and it stops being a mental state and becomes an object you can interact with."

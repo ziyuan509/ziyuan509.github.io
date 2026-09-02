@@ -1,0 +1,68 @@
+# ─────────────────────────────────────────────────────────────
+#  站点身份与首页内容
+#  ⚠ 全文都是占位内容，请逐项替换成你自己的信息。
+#  注释是中文的（给你看的），但所有会上网站的字段都写英文。
+# ─────────────────────────────────────────────────────────────
+
+[site]
+# ⚠ 姓名是我从 git config 的 "Ziyuan" 加邮箱推的，多半不准，务必改
+name        = "Ziyuan Qu"
+role        = "PhD Student, Human-Computer Interaction"
+affiliation = "Your University"
+affiliation_url = "https://example.edu"
+email       = "your.name@example.edu"          # ⚠ 换成你愿意公开的邮箱
+location    = "City, Country"
+photo       = "assets/img/profile.jpg"          # 放一张方形照片到这个路径
+
+# 部署到 https://<user>.github.io 时留空；
+# 部署到 https://<user>.github.io/Per-Website 时填 "/Per-Website"
+base_url    = ""
+
+# ⚠ 站点的完整线上地址，不要带结尾斜杠。
+# 留空的话 canonical、og:url 和 sitemap.xml 都不会生成——搜索引擎收录会受影响，
+# 所以域名一定下来就把它填上，例如 "https://ziyuanqu.com"
+url         = "https://ziyuanqu.dev"
+
+# 浏览器标签页与搜索结果里的描述
+description = "Ziyuan Qu — HCI researcher and game developer working on player experience, interactive systems, and tools for creators."
+
+# 页脚那行小字
+footer_note = "Built by hand. No trackers."
+
+# 首页自我介绍，一段一条，支持行内 HTML
+bio = [
+  "I am a PhD student in human-computer interaction at <a href=\"https://example.edu\">Your University</a>, advised by Prof. Someone. My work is about <strong>how players build an understanding of a system</strong> — from the pacing of a tutorial to how authoring tools hand complexity back to the people using them.",
+  "Before research, and still on weekends, I make games. The two feed each other: designing a level forces me to state an interaction assumption precisely, and running a study tells me which of those assumptions was wrong.",
+  "I am looking for a 2027 internship in player experience research or creativity support tools. Always happy to hear from people working on either.",
+]
+
+# 学术社交图标。kind 可选：
+#   email / scholar / github / orcid / arxiv / dblp
+#   twitter / bluesky / mastodon / linkedin / youtube / itch / cv / rss
+social = [
+  { kind = "email",   url = "mailto:your.name@example.edu" },
+  { kind = "scholar", url = "https://scholar.google.com/citations?user=XXXX" },
+  { kind = "github",  url = "https://github.com/your-handle" },
+  { kind = "orcid",   url = "https://orcid.org/0000-0000-0000-0000" },
+  { kind = "itch",    url = "https://your-handle.itch.io" },
+  { kind = "cv",      url = "assets/cv.pdf" },
+]
+
+# ── 首页 News ───────────────────────────────────────────────
+# 只留最近 5–8 条；日期用字符串，怎么写就怎么显示
+
+[[news]]
+date = "2026.08"
+text = "Started building this site."
+
+[[news]]
+date = "2026.06"
+text = "Submitted a short paper on tutorial pacing to <em>CHI Play</em>."
+
+[[news]]
+date = "2026.04"
+text = "Took part in Ludum Dare — a puzzle prototype in 48 hours, <a href=\"projects.html\">here</a>."
+
+[[news]]
+date = "2026.01"
+text = "Began working with Prof. Someone on creativity support tools."

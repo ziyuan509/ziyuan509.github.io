@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# make_og.py 的 TTF 缓存，只在本地生成图片时用，不需要进仓库
+tools/.fontcache/
