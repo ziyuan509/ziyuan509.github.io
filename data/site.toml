@@ -30,7 +30,7 @@ footer_note = ""
 # 首页自我介绍，一段一条，支持行内 HTML
 bio = [
   "Master's student in Design Innovation and Technology at <a href=\"https://www.rmit.edu.au\">RMIT University</a>, Melbourne, currently visiting Monash University's <a href=\"https://exertiongameslab.org\">Exertion Games Lab</a>. I also go by Bryce.",
-  "I study embodied interaction and extended reality, with a focus on <strong>how people adapt their movement and bodily strategies to changing interactive environments</strong>. My work explores sensing, haptics, and physical–digital interfaces to create more adaptive and human-centered interactive experiences.",
+  "I study embodied interaction and extended reality — specifically, <strong>how people adapt their movement and bodily strategies when interactive environments change</strong>. The longer version is below.",
 ]
 
 # ⚠ Google Scholar 你还没给我。建好个人主页后取消下面这行注释填上即可：

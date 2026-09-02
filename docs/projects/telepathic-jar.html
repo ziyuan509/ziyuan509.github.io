@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telepathic Jar · Ziyuan Qu</title>
+<meta name="description" content="Two IoT bottles that sense the weather where each person is and translate it into light and mist.">
+<meta name="author" content="Ziyuan Qu">
+<meta property="og:title" content="Telepathic Jar · Ziyuan Qu">
+<meta property="og:description" content="Two IoT bottles that sense the weather where each person is and translate it into light and mist.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ziyuan Qu">
+<link rel="canonical" href="https://ziyuanqu.dev/projects/telepathic-jar.html">
+<meta property="og:url" content="https://ziyuanqu.dev/projects/telepathic-jar.html">
+<meta property="og:image" content="https://ziyuanqu.dev/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ziyuanqu.dev/assets/img/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('pw-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="/assets/css/fonts.css?v=1e66fc4d">
+<link rel="stylesheet" href="/assets/css/main.css?v=cd13ef9b">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="/index.html">Ziyuan Qu</a>
+    <button class="nav__menu" type="button" aria-expanded="false" aria-controls="navlinks" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <div class="nav__links" id="navlinks">
+      <a href="/index.html">about</a><a href="/publications.html">publications</a><a href="/projects.html" aria-current="page">projects</a><a href="/cv.html">cv</a>
+      <button class="theme-toggle" type="button" data-state="system" aria-label="Toggle theme"><span data-icon="system"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="4" width="18.8" height="12.4" rx="2"/><path d="M8.4 20h7.2M12 16.6V20"/></svg></span><span data-icon="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg></span><span data-icon="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 13.6A8.4 8.4 0 1 1 10.4 3.6a6.6 6.6 0 0 0 10 10Z"/></svg></span></button>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="wrap wrap--wide">
+  <p class="pback"><a href="/projects.html">← Projects</a></p>
+  <header class="phead">
+    <span class="label">Installation · 2025 · Concept · Hardware · Firmware</span>
+    <h1>Telepathic Jar</h1>
+    <p class="phead__lead">Two bottles in two different places, each sensing the weather where it stands and translating it into
+light and mist. The point is not to report the weather. It is to give two people a quiet, ambient sense
+that the other is having a grey afternoon — the kind of presence a messaging app is bad at carrying.</p>
+    <div class="phead__foot"><span class="tag">IoT</span><span class="tag">ESP32</span><span class="tag">MQTT</span><span class="tag">Calm technology</span></div>
+    <div class="pills"><a class="pill" href="https://youtu.be/Q9m8JZQBXWs" target="_blank" rel="noopener">video</a></div>
+  </header>
+  <div class="phero reveal"><img src="/assets/img/projects/telepathic-jar.jpg" alt=""></div>
+  <div class="facts reveal"><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/></svg></span><span class="fact__label">Hardware</span><span class="fact__value">ESP32-S3 · BME280 · BH1750 · NeoPixel ring · nebuliser</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6"/><path d="M15.8 15.8a5.4 5.4 0 0 0 0-7.6"/><path d="M5.4 5.4a9.4 9.4 0 0 0 0 13.2"/><path d="M18.6 18.6a9.4 9.4 0 0 0 0-13.2"/></svg></span><span class="fact__label">Link</span><span class="fact__value">MQTT over TLS, via HiveMQ Cloud</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.6 8.4 4.6 12l4 3.6M15.4 8.4l4 3.6-4 3.6M13.6 5.4l-3.2 13.2"/></svg></span><span class="fact__label">Data</span><span class="fact__value">Local sensors plus live weather API</span></div><div class="fact"><span class="fact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="4.4" width="18.8" height="12.6" rx="1.4"/><path d="M8.4 20.6h7.2M12 17.2v3.4"/></svg></span><span class="fact__label">Output</span><span class="fact__value">Colour, brightness, and mist density</span></div></div>
+  <div class="psecs"><section class="psec reveal"><h2>Curating, not reporting</h2><div class="psec__body">The system never shows a raw sensor value. Which colours the light can take, how bright it is allowed
+to get, and what makes the nebuliser fire are all design decisions — they map temperature, humidity,
+pressure, ambient light and live weather onto an atmosphere rather than a readout. The bottle form is
+deliberate too: the storm glass is a weather instrument with a few centuries of design heritage behind
+it, and this is an attempt at a modern one.</div></section><section class="psec reveal"><h2>How the two jars find each other</h2><div class="psec__body">On first boot each jar is given its own device ID and its partner's through a web configuration portal.
+From those it builds its MQTT topics — one to publish its readings, one to subscribe to its partner's —
+and connects to the broker over TLS. The first firmware simply reconnected whenever the link dropped,
+which failed quietly and often; the shipped version adds periodic reconnection and detailed status
+reporting, so a jar that has lost its partner says so instead of just going dark.</div><figure class="psec__fig"><img src="/assets/img/projects/telepathic-jar-circuit.jpg" alt="" loading="lazy"><figcaption>Two identical stacks: sensing, a controller, a light ring, and a nebuliser.</figcaption></figure></section><section class="psec reveal"><h2>Making it</h2><div class="psec__body">Everything was assembled and tested by hand — sensors verified one at a time against serial output
+before anything went into an enclosure. Low power was not the focus of this build, but the component
+choices leave room for it: deep sleep on the ESP32 and a battery are the obvious next step.</div><figure class="psec__fig"><img src="/assets/img/projects/telepathic-jar-build.jpg" alt="" loading="lazy"><figcaption>Bench assembly and continuity testing.</figcaption></figure></section></div>
+  <p class="pback pback--end"><a href="/projects.html">← All projects</a></p>
+</div>
+</main>
+
+<footer class="foot">
+  <div class="wrap wrap--wide foot__inner">
+    <span>© 2026 Ziyuan Qu</span>
+    
+    <span class="foot__updated">updated 2026-09-02</span>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js?v=8fb30e24" defer></script>
+</body>
+</html>

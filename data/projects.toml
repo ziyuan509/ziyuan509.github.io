@@ -1,26 +1,78 @@
 # ─────────────────────────────────────────────────────────────
 #  作品 —— 内容依据 projects/ 下的四份作品集 PDF
 #
-#  主图由 tools/make_project_images.py 从 PDF 里抽取并处理成 2:1。
-#  想换某张主图：改那个脚本里 PICKS 的 (页码, 图片序号)，重跑。
+#  列表页是两列小卡，点进去是详情页 projects/<slug>.html。
+#  图片由 tools/make_project_images.py 从 PDF 抽取：
+#    <slug>.jpg          列表页封面，2:1
+#    <slug>-<后缀>.jpg   详情页正文配图，16:9
 #
-#  ⚠ links 里的 "#" 是占位。有项目页 / 代码仓库 / 更多视频就填上，
-#     没有的就把那一项删掉——空链接点了什么都不会发生，反而减分。
+#  facts 的 icon 可选：place / sensing / hardware / code / people /
+#                      layers / time / display / hand
+#  ⚠ links 里没有的项直接删掉，别留 "#" 空链接。
 # ─────────────────────────────────────────────────────────────
 
 [[project]]
+slug     = "was-here"
 name     = "Was Here: From Presence to Trace"
-tagline  = "An interactive projection installation in an RMIT corridor. Four frames trace how a passing body registers in digital systems — a live silhouette, a data trail, a mark on the environment, and finally an anonymous flow of information. Nobody has to stop or press anything; walking through is the whole interaction."
+tagline  = "A projection installation that turns people walking through a corridor into four kinds of trace."
 kind     = "installation"
 year     = "2025"
 role     = "Concept · Algorithms · Fabrication"
-tags     = ["Projection", "Computer vision", "Passive interaction", "MDF"]
+tags     = ["Projection", "Computer vision", "Passive interaction"]
 image    = "assets/img/projects/was-here.jpg"
 featured = true
+lead     = """
+An interactive projection installation in a semi-open corridor at the centre of RMIT — a route people
+walk through rather than stop in. Four frames pick up the bodies passing by and translate them into
+four different kinds of trace: a live silhouette, a data trail, a mark on the physical environment,
+and finally an anonymous flow of information. The question underneath it is whether merely passing
+through can count as a form of presence.
+"""
+facts = [
+  { icon = "place",    label = "Site",        value = "A corridor at RMIT, Melbourne" },
+  { icon = "sensing",  label = "Sensing",     value = "Camera-based motion detection" },
+  { icon = "layers",   label = "Structure",   value = "Four sequential frames" },
+  { icon = "hand",     label = "Interaction", value = "Passive — walking through is enough" },
+]
+
+  [[project.section]]
+  heading = "Reading the site"
+  body = """
+This corridor links the main campus to the Alumni Courtyard, and it is busiest between classes. People
+pass through quickly; almost nobody stops. That is exactly what made it the right place to ask what a
+brief, forgettable presence leaves behind. Before deciding anything about the work, we mapped foot
+traffic, dwell time and sightlines — a projection here has to be legible at walking pace, to someone
+who never intended to look at it.
+"""
+  image = "assets/img/projects/was-here-site.jpg"
+  caption = "The corridor: a passage, not a destination."
+
+  [[project.section]]
+  heading = "Four frames, four kinds of trace"
+  body = """
+The first frame captures a real-time silhouette and projects it onto the wall, where it lingers for a
+few seconds and fades — the body made briefly visible, with no action required. The second turns the
+same movement into a data trail. The later frames push further from the body: an impact registered on
+the physical environment, then an anonymous flow of information in which the individual is no longer
+legible. Read left to right, the sequence is a person being progressively abstracted by the systems
+that notice them.
+"""
+
+  [[project.section]]
+  heading = "Building it"
+  body = """
+The projector sits above a window for throw distance; the camera sits at the base of the second window
+so it catches people at walking height. Frames were cut from MDF for a smooth, weather-tolerant
+surface, then reinforced with Core Flute to stay light enough to mount in a public corridor.
+"""
+  image = "assets/img/projects/was-here-build.jpg"
+  caption = "Field measurement, sheet cutting, and projection mapping tests on site."
+
 
 [[project]]
+slug     = "telepathic-jar"
 name     = "Telepathic Jar"
-tagline  = "A pair of IoT bottles that sense the weather where each person is and translate it into light and mist. Instead of showing raw sensor readings, it curates them — colour, brightness and fog become a quiet way to feel that someone far away is having a grey afternoon. Built on ESP32 with MQTT over TLS."
+tagline  = "Two IoT bottles that sense the weather where each person is and translate it into light and mist."
 kind     = "installation"
 year     = "2025"
 role     = "Concept · Hardware · Firmware"
@@ -28,10 +80,55 @@ tags     = ["IoT", "ESP32", "MQTT", "Calm technology"]
 image    = "assets/img/projects/telepathic-jar.jpg"
 featured = true
 links    = { video = "https://youtu.be/Q9m8JZQBXWs" }
+lead     = """
+Two bottles in two different places, each sensing the weather where it stands and translating it into
+light and mist. The point is not to report the weather. It is to give two people a quiet, ambient sense
+that the other is having a grey afternoon — the kind of presence a messaging app is bad at carrying.
+"""
+facts = [
+  { icon = "hardware", label = "Hardware", value = "ESP32-S3 · BME280 · BH1750 · NeoPixel ring · nebuliser" },
+  { icon = "sensing",  label = "Link",     value = "MQTT over TLS, via HiveMQ Cloud" },
+  { icon = "code",     label = "Data",     value = "Local sensors plus live weather API" },
+  { icon = "display",  label = "Output",   value = "Colour, brightness, and mist density" },
+]
+
+  [[project.section]]
+  heading = "Curating, not reporting"
+  body = """
+The system never shows a raw sensor value. Which colours the light can take, how bright it is allowed
+to get, and what makes the nebuliser fire are all design decisions — they map temperature, humidity,
+pressure, ambient light and live weather onto an atmosphere rather than a readout. The bottle form is
+deliberate too: the storm glass is a weather instrument with a few centuries of design heritage behind
+it, and this is an attempt at a modern one.
+"""
+
+  [[project.section]]
+  heading = "How the two jars find each other"
+  body = """
+On first boot each jar is given its own device ID and its partner's through a web configuration portal.
+From those it builds its MQTT topics — one to publish its readings, one to subscribe to its partner's —
+and connects to the broker over TLS. The first firmware simply reconnected whenever the link dropped,
+which failed quietly and often; the shipped version adds periodic reconnection and detailed status
+reporting, so a jar that has lost its partner says so instead of just going dark.
+"""
+  image = "assets/img/projects/telepathic-jar-circuit.jpg"
+  caption = "Two identical stacks: sensing, a controller, a light ring, and a nebuliser."
+
+  [[project.section]]
+  heading = "Making it"
+  body = """
+Everything was assembled and tested by hand — sensors verified one at a time against serial output
+before anything went into an enclosure. Low power was not the focus of this build, but the component
+choices leave room for it: deep sleep on the ESP32 and a battery are the obvious next step.
+"""
+  image = "assets/img/projects/telepathic-jar-build.jpg"
+  caption = "Bench assembly and continuity testing."
+
 
 [[project]]
+slug     = "dislocation"
 name     = "Dislocation Communication"
-tagline  = "A two-player narrative game for parents and children in single-parent families, built on the Satir family therapy model. One player describes a real conflict; the other uses an \"iceberg searchlight\" to read the layers of feeling underneath it. Repairing the room is how the game marks that you understood each other."
+tagline  = "A two-player narrative game that helps a parent and a child read what sits under an argument."
 kind     = "game"
 year     = "2024"
 role     = "UX Design · Game Design · Research"
@@ -39,13 +136,105 @@ tags     = ["Unreal Engine", "Narrative design", "Mental health"]
 image    = "assets/img/projects/dislocation.jpg"
 featured = true
 links    = { video = "https://youtu.be/l0Uwg_d7UwY" }
+lead     = """
+An emotional narrative game for a parent and a child in a single-parent family, built on the Satir
+family therapy model. One player describes a real conflict; the other works down through the layers of
+feeling underneath it. The game plays the part of a mediator that neither person has to admit they
+needed.
+"""
+facts = [
+  { icon = "people",  label = "Players",   value = "Two — a parent and a child, online" },
+  { icon = "layers",  label = "Framework", value = "Satir family therapy model" },
+  { icon = "time",    label = "Structure", value = "Three chapters" },
+  { icon = "display", label = "Built in",  value = "Unreal Engine" },
+]
+
+  [[project.section]]
+  heading = "Why single-parent families"
+  body = """
+In the European Union roughly 7.8 million households with children are headed by a single parent, about
+14% of households with children; in Sweden, Denmark and Estonia the share passes a quarter. In China
+the figure is around 39 million, close to 12% of families. The literature keeps returning to four
+strains: tense relations where educational values differ, communication hurdles left by an absent
+parent, imbalanced care that swings between neglect and indulgence, and role dislocation — a child
+quietly taking on emotional duties that belong to an adult.
+"""
+
+  [[project.section]]
+  heading = "The Satir model as a mechanic"
+  body = """
+Satir's iceberg metaphor holds that beneath surface emotions like anger or withdrawal sit unmet
+longings — safety, recognition, belonging. The game turns that into something you operate. One player
+describes an event; the system generates a layered reading of it; the other player uses an "iceberg
+searchlight" to work down through surface emotion, to the layer beneath, to the longing at the bottom.
+Making the other person's inner state into an object you have to actively examine is the whole design.
+"""
+  image = "assets/img/projects/dislocation-scene.jpg"
+  caption = "A scene at the start of a chapter, before anything has been repaired."
+
+  [[project.section]]
+  heading = "Repair as feedback"
+  body = """
+Progress is not a score. Completing a chapter's challenge restores the scene — a room that began broken
+is put back together. The state of the space is the feedback on the state of the relationship, which
+means neither player has to be told they did well; they can see it.
+"""
+  image = "assets/img/projects/dislocation-room.jpg"
+  caption = "The same room after the chapter is resolved."
+
 
 [[project]]
+slug     = "touch-it"
 name     = "TOUCH IT!"
-tagline  = "A passive, battery-free accessory that moves your finger off the screen. Borrowing the layout of a kalimba, metal tines act as extended electrodes so taps and swipes register without your hand covering what you are trying to read. The companion iOS prototype is written in Swift, with a threshold that separates a tap from a drag."
+tagline  = "A passive, battery-free accessory that takes your finger off the screen it is trying to read."
 kind     = "device"
 year     = "2024"
 role     = "Hardware · Software · UX"
-tags     = ["Swift", "Hardware prototyping", "Occlusion", "Mobile interaction"]
+tags     = ["Swift", "Hardware prototyping", "Mobile interaction"]
 image    = "assets/img/projects/touch-it.jpg"
 featured = true
+lead     = """
+Borrowing the layout of a kalimba, metal tines act as extended electrodes, so a tap or a swipe still
+registers while your hand stops covering the thing you are trying to read. No battery, no pairing,
+nothing to charge. This work later became a CHI 2026 workshop paper.
+"""
+facts = [
+  { icon = "hand",     label = "Problem",   value = "Finger occlusion on touchscreens" },
+  { icon = "hardware", label = "Hardware",  value = "Metal tines on insulated PET — no power" },
+  { icon = "code",     label = "Software",  value = "Swift / UIKit gesture prototype" },
+  { icon = "sensing",  label = "Principle", value = "Capacitive contact extension" },
+]
+
+  [[project.section]]
+  heading = "The fat-finger problem"
+  body = """
+A finger covering a key disturbs capacitive sensing, so the wrong letter goes in — <em>bucked</em>
+instead of <em>bucket</em>, because k and l are neighbours. Worse than the typo is what it hides: in a
+map or a document, the thing you most want to see is exactly the thing under your hand. Occlusion
+causes mis-triggering as well as blindness, because a blocked touch signal shifts and the system reads
+the wrong target.
+"""
+
+  [[project.section]]
+  heading = "Why a kalimba"
+  body = """
+Existing answers all add material between finger and glass — touchscreen gloves, styluses, conductive
+coatings, conductive patches — and all of them still put a fingertip-sized conductor on the surface. A
+kalimba is already held against a phone, with the far end of each tine resting on the screen. Treating
+those tines as extended contacts moves the hand off the display entirely, and varying their spacing and
+width turns a slide across them into a swipe.
+"""
+  image = "assets/img/projects/touch-it-concept.jpg"
+  caption = "Linear electrodes on an insulating substrate, sized so a finger crossing them reads as a gesture."
+
+  [[project.section]]
+  heading = "Software, and the honest limit"
+  body = """
+The iOS prototype is written in Swift on UIKit: gesture recognition for tap and swipe, a cursor drawn
+where the signal lands, and a threshold that separates a tap from a drag. A stored previous position
+carries the cursor between gestures, so a swipe resumes where the last one ended rather than jumping.
+The limit is iOS itself — a genuinely global emulated pointer is only possible on a jailbroken device,
+so the prototype demonstrates the interaction inside its own app rather than across the system.
+"""
+  image = "assets/img/projects/touch-it-hardware.jpg"
+  caption = "Holding the device: the narrow segment sits under the finger, the wider one against the screen."

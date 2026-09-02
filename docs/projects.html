@@ -17,9 +17,9 @@
 <meta name="twitter:image" content="https://ziyuanqu.dev/assets/img/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<script>(function(){try{var t=localStorage.getItem('pw-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('pw-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="/assets/css/fonts.css?v=1e66fc4d">
-<link rel="stylesheet" href="/assets/css/main.css?v=a3911c35">
+<link rel="stylesheet" href="/assets/css/main.css?v=cd13ef9b">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -37,46 +37,42 @@
 
 <main id="main">
 <div class="wrap wrap--wide">
-  <header class="page-head"><span class="label">projects</span><h1>Projects</h1><p>Games, tools, and things I wrote along the way.</p></header>
-  <section class="section"><div class="section__head"><h2>Installations</h2></div><div class="plist"><article class="pwide">
-  <div class="pwide__frame"><img class="pwide__media" src="/assets/img/projects/was-here.jpg" alt="" loading="lazy"></div>
-  <div class="pwide__body">
-    <div class="pwide__head">
-      <h3 class="pwide__title">Was Here: From Presence to Trace</h3>
-      <span class="pwide__meta">2025 · Concept · Algorithms · Fabrication</span>
-    </div>
-    <p class="pwide__desc">An interactive projection installation in an RMIT corridor. Four frames trace how a passing body registers in digital systems — a live silhouette, a data trail, a mark on the environment, and finally an anonymous flow of information. Nobody has to stop or press anything; walking through is the whole interaction.</p>
-    <div class="pwide__foot"><span class="tag">Projection</span><span class="tag">Computer vision</span><span class="tag">Passive interaction</span><span class="tag">MDF</span></div>
+  <header class="page-head"><span class="label">projects</span><h1>Projects</h1><p>Installations, devices and games. Each one opens onto a fuller write-up.</p></header>
+  <section class="section"><div class="section__head"><h2>Installations</h2></div><div class="grid reveal"><article class="card">
+  <a class="card__media-link" href="/projects/was-here.html" tabindex="-1" aria-hidden="true">
+    <img class="card__media" src="/assets/img/projects/was-here.jpg" alt="" loading="lazy">
+  </a>
+  <div class="card__body">
+    <h3 class="card__title"><a href="/projects/was-here.html">Was Here: From Presence to Trace</a></h3>
+    <p class="card__desc">A projection installation that turns people walking through a corridor into four kinds of trace.</p>
+    <div class="card__foot"><span class="tag">2025</span><span class="tag">Projection</span><span class="tag">Computer vision</span><span class="tag">Passive interaction</span></div>
   </div>
-</article><article class="pwide">
-  <div class="pwide__frame"><img class="pwide__media" src="/assets/img/projects/telepathic-jar.jpg" alt="" loading="lazy"></div>
-  <div class="pwide__body">
-    <div class="pwide__head">
-      <h3 class="pwide__title"><a href="https://youtu.be/Q9m8JZQBXWs">Telepathic Jar</a></h3>
-      <span class="pwide__meta">2025 · Concept · Hardware · Firmware</span>
-    </div>
-    <p class="pwide__desc">A pair of IoT bottles that sense the weather where each person is and translate it into light and mist. Instead of showing raw sensor readings, it curates them — colour, brightness and fog become a quiet way to feel that someone far away is having a grey afternoon. Built on ESP32 with MQTT over TLS.</p>
-    <div class="pwide__foot"><span class="tag">IoT</span><span class="tag">ESP32</span><span class="tag">MQTT</span><span class="tag">Calm technology</span><a class="pill" href="https://youtu.be/Q9m8JZQBXWs" target="_blank" rel="noopener">video</a></div>
+</article><article class="card">
+  <a class="card__media-link" href="/projects/telepathic-jar.html" tabindex="-1" aria-hidden="true">
+    <img class="card__media" src="/assets/img/projects/telepathic-jar.jpg" alt="" loading="lazy">
+  </a>
+  <div class="card__body">
+    <h3 class="card__title"><a href="/projects/telepathic-jar.html">Telepathic Jar</a></h3>
+    <p class="card__desc">Two IoT bottles that sense the weather where each person is and translate it into light and mist.</p>
+    <div class="card__foot"><span class="tag">2025</span><span class="tag">IoT</span><span class="tag">ESP32</span><span class="tag">MQTT</span></div>
   </div>
-</article></div></section><section class="section"><div class="section__head"><h2>Devices</h2></div><div class="plist"><article class="pwide">
-  <div class="pwide__frame"><img class="pwide__media" src="/assets/img/projects/touch-it.jpg" alt="" loading="lazy"></div>
-  <div class="pwide__body">
-    <div class="pwide__head">
-      <h3 class="pwide__title">TOUCH IT!</h3>
-      <span class="pwide__meta">2024 · Hardware · Software · UX</span>
-    </div>
-    <p class="pwide__desc">A passive, battery-free accessory that moves your finger off the screen. Borrowing the layout of a kalimba, metal tines act as extended electrodes so taps and swipes register without your hand covering what you are trying to read. The companion iOS prototype is written in Swift, with a threshold that separates a tap from a drag.</p>
-    <div class="pwide__foot"><span class="tag">Swift</span><span class="tag">Hardware prototyping</span><span class="tag">Occlusion</span><span class="tag">Mobile interaction</span></div>
+</article></div></section><section class="section"><div class="section__head"><h2>Devices</h2></div><div class="grid reveal"><article class="card">
+  <a class="card__media-link" href="/projects/touch-it.html" tabindex="-1" aria-hidden="true">
+    <img class="card__media" src="/assets/img/projects/touch-it.jpg" alt="" loading="lazy">
+  </a>
+  <div class="card__body">
+    <h3 class="card__title"><a href="/projects/touch-it.html">TOUCH IT!</a></h3>
+    <p class="card__desc">A passive, battery-free accessory that takes your finger off the screen it is trying to read.</p>
+    <div class="card__foot"><span class="tag">2024</span><span class="tag">Swift</span><span class="tag">Hardware prototyping</span><span class="tag">Mobile interaction</span></div>
   </div>
-</article></div></section><section class="section"><div class="section__head"><h2>Games</h2></div><div class="plist"><article class="pwide">
-  <div class="pwide__frame"><img class="pwide__media" src="/assets/img/projects/dislocation.jpg" alt="" loading="lazy"></div>
-  <div class="pwide__body">
-    <div class="pwide__head">
-      <h3 class="pwide__title"><a href="https://youtu.be/l0Uwg_d7UwY">Dislocation Communication</a></h3>
-      <span class="pwide__meta">2024 · UX Design · Game Design · Research</span>
-    </div>
-    <p class="pwide__desc">A two-player narrative game for parents and children in single-parent families, built on the Satir family therapy model. One player describes a real conflict; the other uses an &quot;iceberg searchlight&quot; to read the layers of feeling underneath it. Repairing the room is how the game marks that you understood each other.</p>
-    <div class="pwide__foot"><span class="tag">Unreal Engine</span><span class="tag">Narrative design</span><span class="tag">Mental health</span><a class="pill" href="https://youtu.be/l0Uwg_d7UwY" target="_blank" rel="noopener">video</a></div>
+</article></div></section><section class="section"><div class="section__head"><h2>Games</h2></div><div class="grid reveal"><article class="card">
+  <a class="card__media-link" href="/projects/dislocation.html" tabindex="-1" aria-hidden="true">
+    <img class="card__media" src="/assets/img/projects/dislocation.jpg" alt="" loading="lazy">
+  </a>
+  <div class="card__body">
+    <h3 class="card__title"><a href="/projects/dislocation.html">Dislocation Communication</a></h3>
+    <p class="card__desc">A two-player narrative game that helps a parent and a child read what sits under an argument.</p>
+    <div class="card__foot"><span class="tag">2024</span><span class="tag">Unreal Engine</span><span class="tag">Narrative design</span><span class="tag">Mental health</span></div>
   </div>
 </article></div></section>
 </div>
@@ -90,6 +86,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/site.js?v=c6da8826" defer></script>
+<script src="/assets/js/site.js?v=8fb30e24" defer></script>
 </body>
 </html>

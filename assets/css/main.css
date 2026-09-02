@@ -726,3 +726,73 @@ main { padding-block: 3.5rem 5rem; }
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
 }
+
+/* --- 17. 作品详情页 ------------------------------------------------------ */
+
+.pback {
+  font-family: var(--mono); font-size: .75rem; letter-spacing: .06em;
+  text-transform: uppercase; margin-bottom: 1.75rem;
+}
+.pback a { color: var(--muted); text-decoration: none; }
+.pback a:hover { color: var(--accent); }
+.pback--end {
+  margin: 3.5rem 0 0; padding-top: 1.75rem; border-top: 1px solid var(--rule);
+}
+
+.phead { margin-bottom: 2.5rem; }
+.phead .label { display: block; margin-bottom: .75rem; }
+.phead h1 { margin-bottom: 1rem; max-width: 22ch; }
+.phead__lead { font-size: 1.125rem; line-height: 1.66; color: var(--ink-2); max-width: 38rem; }
+.phead__foot { display: flex; flex-wrap: wrap; gap: .375rem; margin-top: 1.375rem; }
+.phead .pills { margin-top: .75rem; }
+
+.phero { margin-bottom: 3rem; }
+.phero img {
+  width: 100%; aspect-ratio: 2 / 1; object-fit: cover;
+  border: 1px solid var(--rule); background: var(--surface-2);
+}
+
+/* 一眼看清的关键信息：大号线性图标 + 小标签 + 值 */
+.facts {
+  display: grid; gap: 1.75rem 2rem; grid-template-columns: 1fr;
+  margin-bottom: 3.5rem; padding-block: 1.875rem;
+  border-block: 1px solid var(--rule);
+}
+@media (min-width: 34rem) { .facts { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 52rem) { .facts { grid-template-columns: repeat(4, 1fr); } }
+.fact { display: flex; flex-direction: column; }
+.fact__icon { color: var(--accent); }
+.fact__icon svg { width: 2rem; height: 2rem; }
+.fact__label {
+  font-family: var(--mono); font-size: .6875rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin: .75rem 0 .3125rem;
+}
+.fact__value { font-size: .9375rem; color: var(--ink-2); line-height: 1.55; }
+
+.psecs { display: flex; flex-direction: column; gap: 3.75rem; }
+.psec h2 { font-size: 1.375rem; margin-bottom: .875rem; }
+.psec__body { font-size: 1.0313rem; line-height: 1.72; color: var(--ink-2); max-width: 38rem; }
+.psec__fig { margin: 1.875rem 0 0; }
+.psec__fig img {
+  width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+  border: 1px solid var(--rule); background: var(--surface-2);
+}
+.psec__fig figcaption {
+  font-size: .8438rem; color: var(--muted); margin-top: .6875rem; max-width: 34rem;
+}
+
+/* 卡片整块图都可点，但对读屏隐藏——标题里已经有同一个链接了 */
+.card__media-link { display: block; text-decoration: none; }
+
+/* --- 18. 入场动效 -------------------------------------------------------- */
+/* 只在 JS 可用时才隐藏（<head> 里会给 <html> 加 .js），
+   否则脚本失效时内容会永远看不见。
+   注意这是「入场」不是 hover——hover 仍然只用线和边，不做位移。 */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0; transform: translateY(10px);
+    transition: opacity .55s var(--ease), transform .55s var(--ease);
+  }
+  .js .reveal.is-in { opacity: 1; transform: none; }
+}

@@ -173,6 +173,34 @@ THEME_ICONS = (
         '<path d="M20.4 13.6A8.4 8.4 0 1 1 10.4 3.6a6.6 6.6 0 0 0 10 10Z"/>') + '</span>'
 )
 
+# 详情页 facts 用的大号线性图标。统一 24 视框、1.4 描边，
+# 在 32px 上显示时线条不会糊。
+_L = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" '
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{}</svg>')
+
+FACT_ICONS = {
+    "place":    _L.format('<path d="M12 21.5s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/>'
+                          '<circle cx="12" cy="10.2" r="2.6"/>'),
+    "sensing":  _L.format('<circle cx="12" cy="12" r="2"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6"/>'
+                          '<path d="M15.8 15.8a5.4 5.4 0 0 0 0-7.6"/>'
+                          '<path d="M5.4 5.4a9.4 9.4 0 0 0 0 13.2"/><path d="M18.6 18.6a9.4 9.4 0 0 0 0-13.2"/>'),
+    "hardware": _L.format('<rect x="7" y="7" width="10" height="10" rx="1"/>'
+                          '<path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3'
+                          'M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/>'),
+    "code":     _L.format('<path d="M8.6 8.4 4.6 12l4 3.6M15.4 8.4l4 3.6-4 3.6M13.6 5.4l-3.2 13.2"/>'),
+    "people":   _L.format('<circle cx="9" cy="8.4" r="3.2"/><path d="M3.4 19.6a5.6 5.6 0 0 1 11.2 0"/>'
+                          '<path d="M16.2 6a3.2 3.2 0 0 1 0 6.4M17.4 15.2a5.6 5.6 0 0 1 3.2 4.4"/>'),
+    "layers":   _L.format('<path d="m12 3.2 8.4 4.4-8.4 4.4-8.4-4.4L12 3.2Z"/>'
+                          '<path d="m3.6 12 8.4 4.4 8.4-4.4M3.6 16.4 12 20.8l8.4-4.4"/>'),
+    "time":     _L.format('<circle cx="12" cy="12" r="8.6"/><path d="M12 6.8V12l3.4 2"/>'),
+    "display":  _L.format('<rect x="2.6" y="4.4" width="18.8" height="12.6" rx="1.4"/>'
+                          '<path d="M8.4 20.6h7.2M12 17.2v3.4"/>'),
+    "hand":     _L.format('<path d="M8.4 11V5.6a1.6 1.6 0 0 1 3.2 0V11"/>'
+                          '<path d="M11.6 10.6V4.4a1.6 1.6 0 0 1 3.2 0v6.2"/>'
+                          '<path d="M14.8 11V7.2a1.6 1.6 0 0 1 3.2 0v7.4a6 6 0 0 1-6 6h-1a5 5 0 0 1-3.6-1.5l-3-3.1'
+                          'a1.6 1.6 0 0 1 2.3-2.3l1.7 1.6"/>'),
+}
+
 MONTHS = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 
@@ -284,7 +312,7 @@ def _mini_md(text: str) -> str:
 
 # 防止深色模式下的白屏闪烁：在 CSS 之前同步执行
 ANTI_FLASH = (
-    "<script>(function(){try{var t=localStorage.getItem('pw-theme');"
+    "<script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('pw-theme');"
     "if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>"
 )
 
@@ -457,43 +485,52 @@ def pub_entry(p: dict, me: str) -> str:
 </article>"""
 
 
-def _project_link(p: dict, links: dict) -> str:
-    primary = links.get("play") or links.get("code") or links.get("page") or links.get("video")
-    name = e(p["name"])
-    return f'<a href="{e(u(primary))}">{name}</a>' if primary else name
+def project_url(p: dict) -> str:
+    """详情页地址。没写 slug 就从名字生成一个。"""
+    return u(f"projects/{p.get('slug') or slugify(p['name'])}.html")
 
 
 def project_card(p: dict) -> str:
-    """首页的三格预览：小卡，图只是提示。"""
-    links = p.get("links", {}) or {}
-    tags = "".join(f'<span class="tag">{e(t)}</span>' for t in p.get("tags", []))
+    """列表页与首页共用的卡片。整张卡片指向详情页，外链留到详情页里。"""
+    tags = "".join(f'<span class="tag">{e(t)}</span>' for t in p.get("tags", [])[:3])
+    href = project_url(p)
     return f"""<article class="card">
-  {thumb(p.get("image", ""), p["name"], "card__media")}
+  <a class="card__media-link" href="{href}" tabindex="-1" aria-hidden="true">
+    {thumb(p.get("image", ""), p["name"], "card__media")}
+  </a>
   <div class="card__body">
-    <h3 class="card__title">{_project_link(p, links)}</h3>
+    <h3 class="card__title"><a href="{href}">{e(p["name"])}</a></h3>
     <p class="card__desc">{e(p.get("tagline", ""))}</p>
     <div class="card__foot"><span class="tag">{e(p.get("year", ""))}</span>{tags}</div>
-    <div class="pills">{pill_links(links)}</div>
   </div>
 </article>"""
 
 
-def project_wide(p: dict) -> str:
-    """Projects 落地页：一条一个，大图在上，一眼看清做的是什么。"""
-    links = p.get("links", {}) or {}
-    tags = "".join(f'<span class="tag">{e(t)}</span>' for t in p.get("tags", []))
-    meta = " · ".join(x for x in (str(p.get("year", "")), p.get("role", "")) if x)
-    return f"""<article class="pwide">
-  <div class="pwide__frame">{thumb(p.get("image", ""), p["name"], "pwide__media")}</div>
-  <div class="pwide__body">
-    <div class="pwide__head">
-      <h3 class="pwide__title">{_project_link(p, links)}</h3>
-      <span class="pwide__meta">{e(meta)}</span>
-    </div>
-    <p class="pwide__desc">{e(p.get("tagline", ""))}</p>
-    <div class="pwide__foot">{tags}{pill_links(links)}</div>
-  </div>
-</article>"""
+def project_facts(p: dict) -> str:
+    facts = p.get("facts", [])
+    if not facts:
+        return ""
+    items = []
+    for f in facts:
+        icon = FACT_ICONS.get(f.get("icon", ""), FACT_ICONS["layers"])
+        items.append(f'<div class="fact"><span class="fact__icon">{icon}</span>'
+                     f'<span class="fact__label">{e(f.get("label", ""))}</span>'
+                     f'<span class="fact__value">{e(f.get("value", ""))}</span></div>')
+    return f'<div class="facts reveal">{"".join(items)}</div>'
+
+
+def project_sections(p: dict) -> str:
+    out = []
+    for sec in p.get("section", []):
+        fig = ""
+        if has_asset(sec.get("image", "")):
+            cap = (f'<figcaption>{e(sec["caption"])}</figcaption>'
+                   if sec.get("caption") else "")
+            fig = (f'<figure class="psec__fig"><img src="{e(u(sec["image"]))}" alt="" '
+                   f'loading="lazy">{cap}</figure>')
+        out.append(f'<section class="psec reveal"><h2>{e(sec.get("heading", ""))}</h2>'
+                   f'<div class="psec__body">{sec.get("body", "").strip()}</div>{fig}</section>')
+    return "".join(out)
 
 
 def play_entry(g: dict) -> str:
@@ -629,7 +666,12 @@ def render_publications(site, pubs) -> str:
     return shell(site, title="Publications", active="publications.html", body=body)
 
 
+KIND_LABEL = {"installation": "Installation", "device": "Device", "game": "Game",
+              "tool": "Tool", "research": "Research", "other": "Project"}
+
+
 def render_projects(site, projects) -> str:
+    """列表页：两列卡片，点进去看详情。"""
     order = ["installation", "device", "game", "tool", "research", "other"]
     names = {"installation": "Installations", "device": "Devices", "game": "Games",
              "tool": "Tools", "research": "Research", "other": "Other"}
@@ -639,12 +681,42 @@ def render_projects(site, projects) -> str:
         if not items:
             continue
         blocks.append(f'<section class="section"><div class="section__head"><h2>{names[kind]}</h2></div>'
-                      f'<div class="plist">{"".join(project_wide(p) for p in items)}</div></section>')
+                      f'<div class="grid reveal">{"".join(project_card(p) for p in items)}</div></section>')
     body = f"""<div class="wrap wrap--wide">
-  {page_head("projects", "Projects", "Games, tools, and things I wrote along the way.")}
+  {page_head("projects", "Projects", "Installations, devices and games. Each one opens onto a fuller write-up.")}
   {"".join(blocks) or '<p class="empty">No projects yet.</p>'}
 </div>"""
     return shell(site, title="Projects", active="projects.html", body=body)
+
+
+def render_project(site, p) -> str:
+    """单个作品的详情页。"""
+    links = p.get("links", {}) or {}
+    tags = "".join(f'<span class="tag">{e(t)}</span>' for t in p.get("tags", []))
+    meta = " · ".join(x for x in (KIND_LABEL.get(p.get("kind", "other"), "Project"),
+                                  str(p.get("year", "")), p.get("role", "")) if x)
+    hero = ""
+    if has_asset(p.get("image", "")):
+        hero = (f'<div class="phero reveal"><img src="{e(u(p["image"]))}" alt=""></div>')
+    pills = pill_links(links)
+
+    body = f"""<div class="wrap wrap--wide">
+  <p class="pback"><a href="{u('projects.html')}">← Projects</a></p>
+  <header class="phead">
+    <span class="label">{e(meta)}</span>
+    <h1>{e(p["name"])}</h1>
+    <p class="phead__lead">{p.get("lead", p.get("tagline", "")).strip()}</p>
+    <div class="phead__foot">{tags}</div>
+    {f'<div class="pills">{pills}</div>' if pills else ''}
+  </header>
+  {hero}
+  {project_facts(p)}
+  <div class="psecs">{project_sections(p)}</div>
+  <p class="pback pback--end"><a href="{u('projects.html')}">← All projects</a></p>
+</div>"""
+    return shell(site, title=p["name"], active="projects.html", body=body,
+                 desc=p.get("tagline", ""),
+                 path=f"projects/{p.get('slug') or slugify(p['name'])}.html")
 
 
 def render_cv(site, cv) -> str:
@@ -727,7 +799,8 @@ def favicon_svg(site: dict) -> str:
     )
 
 
-def render_sitemap(site: dict, pages: list[str], posts: list[dict]) -> str | None:
+def render_sitemap(site: dict, pages: list[str], posts: list[dict],
+                   projects: list[dict] | None = None) -> str | None:
     site_url = (site.get("url") or "").rstrip("/")
     if not site_url:
         return None
@@ -741,6 +814,8 @@ def render_sitemap(site: dict, pages: list[str], posts: list[dict]) -> str | Non
             loc = loc[: -len("index.html")]
         locs.append(loc)
     locs += [f"{site_url}/notes/{p['slug']}.html" for p in posts]
+    for pr in (projects or []):
+        locs.append(f"{site_url}/projects/{pr.get('slug') or slugify(pr['name'])}.html")
 
     entries = "\n".join(
         f"  <url><loc>{e(l)}</loc><lastmod>{today}</lastmod></url>" for l in locs)
@@ -816,6 +891,11 @@ def main() -> int:
     for name, content in pages.items():
         (OUT / name).write_text(content, encoding="utf-8")
 
+    (OUT / "projects").mkdir(exist_ok=True)
+    for pr in projects:
+        slug = pr.get("slug") or slugify(pr["name"])
+        (OUT / "projects" / f"{slug}.html").write_text(render_project(site, pr), encoding="utf-8")
+
     (OUT / "notes").mkdir(exist_ok=True)
     for p in posts:
         (OUT / "notes" / f"{p['slug']}.html").write_text(render_post(site, p), encoding="utf-8")
@@ -823,7 +903,7 @@ def main() -> int:
     # 站点级附属文件
     (OUT / "favicon.svg").write_text(favicon_svg(site), encoding="utf-8")
     (OUT / "robots.txt").write_text(render_robots(site), encoding="utf-8")
-    sitemap = render_sitemap(site, list(pages), posts)
+    sitemap = render_sitemap(site, list(pages), posts, projects)
     if sitemap:
         (OUT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
 
@@ -835,7 +915,7 @@ def main() -> int:
     if host and not host.endswith(".github.io"):
         (OUT / "CNAME").write_text(host + "\n", encoding="utf-8")
 
-    total = len(pages) + len(posts)
+    total = len(pages) + len(posts) + len(projects)
     print(f"✓ 生成 {total} 个页面 → {OUT}")
     print(f"  论文 {len(pubs)} · 作品 {len(projects)} · 文章 {len(posts)} · 游戏 {len(plays)}")
 

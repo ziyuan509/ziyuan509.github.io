@@ -93,3 +93,43 @@
     }
   });
 })();
+
+/* --- 入场动效 ---------------------------------------------------------
+   淡入 + 轻微上移，逐个错开。只处理带 .reveal 的块。
+   用户开了「减少动效」就直接显示，不做任何过渡。 */
+
+(function () {
+  "use strict";
+
+  var items = document.querySelectorAll(".reveal");
+  if (!items.length) return;
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)) {
+    for (var i = 0; i < items.length; i++) items[i].classList.add("is-in");
+    return;
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    var shown = 0;
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      // 同一屏里出现多个时错开一点，避免整片一起跳出来
+      en.target.style.transitionDelay = (shown++ * 70) + "ms";
+      en.target.classList.add("is-in");
+      io.unobserve(en.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+
+  for (var j = 0; j < items.length; j++) io.observe(items[j]);
+
+  // 兜底：IntersectionObserver 在页面处于后台标签、被隐藏容器包裹、
+  // 或某些嵌入式浏览器里可能一直不触发。真出现那种情况时内容会永久不可见，
+  // 这个代价太大，所以无条件在 1.5 秒后全部显示。
+  setTimeout(function () {
+    for (var k = 0; k < items.length; k++) {
+      items[k].style.transitionDelay = "0ms";
+      items[k].classList.add("is-in");
+    }
+  }, 1500);
+})();
