@@ -50,12 +50,6 @@ title = "Education"
 title = "Experience"
 
   [[section.entry]]
-  when  = "May 2024 — now"
-  what  = "Founder"
-  where = "Shenzhen Inspiration Puzzle Design Co., Shenzhen"
-  note  = "Educational robotics and interactive technology for learning contexts. Designed the body structure of ROS-based smart carts and supported YOLO-based vision algorithm design."
-
-  [[section.entry]]
   when  = "Jul 2023 — Dec 2023"
   what  = "Research Assistant"
   where = "Tencent, Shenzhen"
