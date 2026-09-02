@@ -59,17 +59,19 @@ title = "Experience"
 
   [[section.entry]]
   when  = "Jul 2023 — Dec 2023"
-  # 腾讯中文字标是纯黑，深色主题下 1.2:1 完全看不见，需要反相成白
-  logo  = "assets/img/logos/tencent.svg"
-  logo_invert_dark = true
+  # 官方英文字标。深色版是 tools/make_logo_variants.py 生成的整体反白版。
+  logo      = "assets/img/logos/tencent.png"
+  logo_dark = "assets/img/logos/tencent-dark.png"
   what  = "Research Assistant"
   where = "Tencent, Shenzhen"
   note  = "UX measurement for Tencent Meeting. Ran ~20 hours of user testing and 7 hours of semi-structured interviews; synthesised 24 interview records and 48 feedback items into 6 experience directions and 6 design recommendations."
 
   [[section.entry]]
   when  = "Sep 2022 — Jan 2023"
-  # 网易红 #C22B2F：浅色 5.7:1、深色 3.2:1，两种主题都够，不反相
-  logo  = "assets/img/logos/netease.svg"
+  # 网易互娱。深色版只把 "NetEase Games" 那行深灰文字翻白，
+  # 红色火焰保留原色——整体翻白会把品牌红也弄没。
+  logo      = "assets/img/logos/netease-games.png"
+  logo_dark = "assets/img/logos/netease-games-dark.png"
   what  = "Game UX Design Intern"
   where = "NetEase, Guangzhou"
   note  = "UX team for Peak Speed, a AAA racing mobile title. Gameplay interaction flows, interface logic, information architecture and Figma prototypes; implemented interface designs in Unreal Engine 4 with designers, planners, artists and engineers."

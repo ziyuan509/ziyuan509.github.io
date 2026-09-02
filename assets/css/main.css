@@ -564,12 +564,25 @@ main { padding-block: 3.5rem 5rem; }
    多数徽标（RMIT 红、EGL 黄、Aalto 黑底白字）在两种主题下都成立；
    只有深色单色徽标（如深技大的深蓝）需要在深色主题下反相，
    由 data 里的 logo_invert_dark 打上 --flip 标记。 */
-.cv-block--logos .cv-row { grid-template-columns: 2.5rem 8.5rem 1fr; gap: 1rem 1.125rem; }
+/* 格子比方形徽章宽：企业字标是横向的（腾讯 5.3:1、网易互娱 2.8:1），
+   40px 见方时只有 7px 高、完全读不出来。88×40 下腾讯约 16px 高可读，
+   方形校徽仍受高度上限约束、维持 40×40 不变。 */
+.cv-block--logos .cv-row { grid-template-columns: 5.5rem 8.5rem 1fr; gap: 1rem 1.125rem; }
 .cv-row__logo {
-  width: 2.5rem; height: 2.5rem; margin-top: .0625rem;
+  width: 5.5rem; height: 2.5rem; margin-top: .0625rem;
   display: grid; place-items: center;
 }
 .cv-row__logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+/* 有官方反白版时按主题换文件。三种主题状态都要覆盖：
+   跟随系统（无 data-theme）、显式浅色、显式深色。 */
+.cv-row__logo .logo-dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cv-row__logo .logo-light { display: none; }
+  :root:not([data-theme="light"]) .cv-row__logo .logo-dark  { display: block; }
+}
+:root[data-theme="dark"] .cv-row__logo .logo-light { display: none; }
+:root[data-theme="dark"] .cv-row__logo .logo-dark  { display: block; }
 
 /* invert + hue-rotate(180deg) 只翻转明度、保留色相，
    所以深蓝会变成浅蓝而不是变成橙色。 */
@@ -585,7 +598,8 @@ main { padding-block: 3.5rem 5rem; }
 @media (max-width: 32rem) {
   .cv-row { grid-template-columns: 1fr; gap: .25rem; }
   /* 窄屏改成徽标在左、文字在右的两列，时间行跨满 */
-  .cv-block--logos .cv-row { grid-template-columns: 2.5rem 1fr; gap: .25rem .875rem; }
+  .cv-block--logos .cv-row { grid-template-columns: 4rem 1fr; gap: .25rem .875rem; }
+  .cv-row__logo { width: 4rem; }
   .cv-block--logos .cv-row__when { grid-column: 2; }
   .cv-block--logos .cv-row__what { grid-column: 2; }
 }

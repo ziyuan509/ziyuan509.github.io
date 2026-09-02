@@ -752,8 +752,15 @@ def render_cv(site, cv) -> str:
             note = f'<div class="cv-row__note">{e(en["note"])}</div>' if en.get("note") else ""
             logo = ""
             if has_logo:
-                inner = (f'<img src="{e(u(en["logo"]))}" alt="" loading="lazy">'
-                         if has_asset(en.get("logo", "")) else "")
+                inner = ""
+                if has_asset(en.get("logo", "")):
+                    if has_asset(en.get("logo_dark", "")):
+                        # 有官方反白版就按主题换文件——比 CSS 滤镜保真，
+                        # 也能做到「只翻文字、保留品牌色」这种混合处理。
+                        inner = (f'<img class="logo-light" src="{e(u(en["logo"]))}" alt="" loading="lazy">'
+                                 f'<img class="logo-dark" src="{e(u(en["logo_dark"]))}" alt="" loading="lazy">')
+                    else:
+                        inner = f'<img src="{e(u(en["logo"]))}" alt="" loading="lazy">'
                 cls = "cv-row__logo cv-row__logo--flip" if en.get("logo_invert_dark") else "cv-row__logo"
                 logo = f'<div class="{cls}" aria-hidden="true">{inner}</div>'
             rows.append(f'<div class="cv-row">{logo}<div class="cv-row__when">{e(en.get("when", ""))}</div>'
