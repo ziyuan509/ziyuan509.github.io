@@ -30,7 +30,7 @@ footer_note = ""
 # 首页自我介绍，一段一条，支持行内 HTML
 bio = [
   "Master's student in Design Innovation and Technology at <a href=\"https://www.rmit.edu.au\">RMIT University</a>, Melbourne, currently visiting Monash University's <a href=\"https://exertiongameslab.org\">Exertion Games Lab</a>. I also go by Bryce.",
-  "I work between HCI and interaction design, on turning a system's <strong>emotional and physiological signals</strong> into something a person can see, question, or act on. Before Melbourne: industrial design in Shenzhen, game UX at NetEase, user research at Tencent, and a small company building educational robotics.",
+  "I study embodied interaction and extended reality, with a focus on <strong>how people adapt their movement and bodily strategies to changing interactive environments</strong>. My work explores sensing, haptics, and physical–digital interfaces to create more adaptive and human-centered interactive experiences.",
 ]
 
 # ⚠ Google Scholar 你还没给我。建好个人主页后取消下面这行注释填上即可：
@@ -44,6 +44,14 @@ social = [
   { kind = "github",   url = "https://github.com/ziyuan509" },
   { kind = "linkedin", url = "https://www.linkedin.com/in/ziyuan-qu-2a1654360/" },
 ]
+
+# ── Research Interests ─────────────────────────────────────
+# 首页 bio 下面的独立一段。留空则整块不渲染。
+# 注意：这段和 bio 第二段主题重叠，加粗刻意错开——
+# bio 里强调研究问题，这里强调研究领域，扫读时信息互补而不是重复。
+research_interests = """
+My research explores <strong>embodied interaction, extended reality, and wearable and ubiquitous sensing</strong>. I am particularly interested in how people adapt their movement and bodily strategies when the relationship between their actions and interactive environments changes. Building on this, I explore how sensing, haptics, and physical–digital interfaces can make interactive systems more responsive to users' behavior and bodily states. More broadly, I aim to design and study human-centered technologies that connect perception, action, and the physical environment across immersive and everyday contexts.
+"""
 
 # ── 首页 News ───────────────────────────────────────────────
 # ⚠ 两篇论文的具体月份我不知道，按实际发表/接收时间改。

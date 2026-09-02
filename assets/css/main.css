@@ -346,6 +346,10 @@ main { padding-block: 3.5rem 5rem; }
 .section__head h2 { font-size: 1.25rem; }
 .section__more { margin-left: auto; font-size: .875rem; }
 
+/* Research Interests：单独一段说明文字，比 bio 稍宽松一点，
+   栏宽卡在 62 字符左右，长段落才不会读得费劲。 */
+.ri { font-size: 1rem; line-height: 1.72; color: var(--ink-2); max-width: 36rem; }
+
 /* --- 9. News（日期左栏 + 内容右栏） ------------------------------------- */
 
 .news { display: flex; flex-direction: column; }

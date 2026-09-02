@@ -15,6 +15,7 @@ Deploy from a branch → main / docs）。
 
 from __future__ import annotations
 
+import hashlib
 import html
 import re
 import shutil
@@ -52,6 +53,23 @@ NAV = [
 NAV_ACTIVE: list[tuple[str, str]] = list(NAV)
 
 BASE = ""  # 由 site.toml 的 base_url 覆盖
+
+# CSS/JS 的内容指纹。浏览器会按 GitHub Pages 给的 max-age=600 缓存这些文件，
+# 改了样式之后回访的人可能十分钟内还看到旧版。带上内容哈希后，
+# 文件一变 URL 就变，缓存立即失效。
+ASSET_V: dict[str, str] = {}
+
+
+def stamp(rel: str) -> str:
+    """给站内静态资源加上内容哈希查询串。"""
+    path = ROOT / rel.lstrip("/")
+    if not path.exists():
+        return u(rel)
+    key = ASSET_V.get(rel)
+    if key is None:
+        key = hashlib.sha1(path.read_bytes()).hexdigest()[:8]
+        ASSET_V[rel] = key
+    return f"{u(rel)}?v={key}"
 
 
 # ── 工具 ──────────────────────────────────────────────────────────────────
@@ -317,8 +335,8 @@ def shell(site: dict, *, title: str, active: str, body: str,
 {chr(10).join(head_extra)}
 {chr(10).join(icons)}
 {ANTI_FLASH}
-<link rel="stylesheet" href="{u('assets/css/fonts.css')}">
-<link rel="stylesheet" href="{u('assets/css/main.css')}">
+<link rel="stylesheet" href="{stamp('assets/css/fonts.css')}">
+<link rel="stylesheet" href="{stamp('assets/css/main.css')}">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -346,7 +364,7 @@ def shell(site: dict, *, title: str, active: str, body: str,
   </div>
 </footer>
 
-<script src="{u('assets/js/site.js')}" defer></script>
+<script src="{stamp('assets/js/site.js')}" defer></script>
 </body>
 </html>
 """
@@ -586,6 +604,7 @@ def render_index(site, pubs, projects, posts, news) -> str:
     </div>
   </div>
 
+  {f'<section class="section"><div class="section__head"><h2>Research Interests</h2></div><div class="ri">{site["research_interests"].strip()}</div></section>' if site.get("research_interests", "").strip() else ''}
   {f'<section class="section"><div class="section__head"><h2>News</h2></div><div class="news">{news_html}</div></section>' if news_html else ''}
   {section("Selected Publications", "publications.html", pubs_html)}
   {section("Selected Projects", "projects.html", proj_html, "grid grid--3")}
