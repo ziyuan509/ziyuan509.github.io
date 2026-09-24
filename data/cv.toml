@@ -6,9 +6,10 @@
 #   · GPA / WAM —— 在线简历一般不列，需要的人会看 PDF 版
 #  两者都还在你的 PDF 里，网页版只做索引。
 #
-#  logo 来源：RMIT / Aalto / Monash 用各校官网的 apple-touch-icon，
-#  SZTU 用官网 SVG 校徽，Exertion Games Lab 用站点图标，
-#  腾讯 / 网易用 Wikimedia 上的官方矢量标识。
+#  logo 来源：RMIT / Aalto 用各校官网的 apple-touch-icon，
+#  SZTU 用官网 SVG 校徽，腾讯 / 网易用 Wikimedia 上的官方矢量标识。
+#  （monash.png 和 exertion-games-lab.png 还留在 assets/img/logos/ 里，
+#    以后要恢复 Monash 那条经历时直接用即可。）
 #  SZTU 与网易的 SVG 都裁过 viewBox，只保留徽章/图形标，去掉了文字部分——
 #  40px 的格子里带文字的横向长条标会缩到几像素高，完全读不出来。
 #
@@ -22,14 +23,6 @@
 
 [[section]]
 title = "Education"
-
-  [[section.entry]]
-  when  = "Jul 2026 — Dec 2026"
-  # 这一条用的是实验室标。想换成 Monash 校徽就改成 logos/monash.png
-  logo  = "assets/img/logos/exertion-games-lab.png"
-  what  = "Visiting Student, Exertion Games Lab"
-  where = "Monash University, Melbourne — Department of Human-Centred Computing"
-  note  = "Embodied interaction, exertion games, wearable and immersive technology, interactive prototyping, research through design."
 
   [[section.entry]]
   when  = "Feb 2025 — Dec 2026"
