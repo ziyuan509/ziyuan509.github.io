@@ -685,14 +685,16 @@ def render_publications(site, pubs) -> str:
 
 
 KIND_LABEL = {"installation": "Installation", "device": "Device", "game": "Game",
-              "tool": "Tool", "research": "Research", "other": "Project"}
+              "visualisation": "Visualisation", "tool": "Tool", "research": "Research",
+              "other": "Project"}
 
 
 def render_projects(site, projects) -> str:
     """列表页：两列卡片，点进去看详情。"""
-    order = ["installation", "device", "game", "tool", "research", "other"]
+    order = ["installation", "device", "game", "visualisation", "tool", "research", "other"]
     names = {"installation": "Installations", "device": "Devices", "game": "Games",
-             "tool": "Tools", "research": "Research", "other": "Other"}
+             "visualisation": "Visualisations", "tool": "Tools", "research": "Research",
+             "other": "Other"}
     blocks = []
     for kind in order:
         items = [p for p in projects if p.get("kind", "other") == kind]
@@ -701,7 +703,7 @@ def render_projects(site, projects) -> str:
         blocks.append(f'<section class="section"><div class="section__head"><h2>{names[kind]}</h2></div>'
                       f'<div class="grid reveal">{"".join(project_card(p) for p in items)}</div></section>')
     body = f"""<div class="wrap wrap--wide">
-  {page_head("projects", "Projects", "Installations, devices and games. Each one opens onto a fuller write-up.")}
+  {page_head("projects", "Projects", "Installations, devices, games and visualisations. Each one opens onto a fuller write-up.")}
   {"".join(blocks) or '<p class="empty">No projects yet.</p>'}
 </div>"""
     return shell(site, title="Projects", active="projects.html", body=body)

@@ -763,6 +763,36 @@ main { padding-block: 3.5rem 5rem; }
   font-size: .8438rem; color: var(--muted); margin-top: .6875rem; max-width: 34rem;
 }
 
+/* 正文里的数据表：只用横向细线，不画竖线和底色；数字列等宽 + 右对齐。
+   窄屏放不下时表格自己横向滚动，页面不跟着撑宽。 */
+.ptable { margin: 1.5rem 0; overflow-x: auto; }
+.ptable table { width: 100%; border-collapse: collapse; font-size: .875rem; line-height: 1.5; }
+.ptable th {
+  font-family: var(--mono); font-size: .6875rem; font-weight: 500; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted); text-align: left; white-space: nowrap;
+  padding: 0 1rem .5625rem 0; border-bottom: 1px solid var(--rule-2);
+}
+.ptable td {
+  padding: .5625rem 1rem .5625rem 0; border-bottom: 1px solid var(--rule);
+  vertical-align: baseline; color: var(--ink-2);
+}
+.ptable tr > :last-child { padding-right: 0; }
+.ptable .band { white-space: nowrap; }
+.ptable .n {
+  text-align: right; white-space: nowrap;
+  font-family: var(--mono); font-size: .8125rem; font-variant-numeric: tabular-nums;
+}
+.ptable th.n { font-size: .6875rem; }
+.ptable .src {
+  display: block; margin-top: .125rem;
+  font-family: var(--mono); font-size: .6875rem; letter-spacing: .04em; color: var(--muted);
+}
+/* 色块：数据本身的颜色，不随主题变 */
+.sw {
+  display: inline-block; width: .625rem; height: .625rem; margin-right: .5625rem;
+  vertical-align: .0625rem; outline: 1px solid var(--rule); outline-offset: -1px;
+}
+
 /* 卡片整块图都可点，但对读屏隐藏——标题里已经有同一个链接了 */
 .card__media-link { display: block; text-decoration: none; }
 

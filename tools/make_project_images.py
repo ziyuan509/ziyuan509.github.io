@@ -71,6 +71,12 @@ CURATED = {
         "hero": "theta/cover.png",
         "figs": [],
     },
+    # 只用画布截图：PDF 封面是 AI 生成的，流程图与代码实际行为不符，都不放
+    "news-tapestry": {
+        "hero": "News Tapestry/title.png",
+        "figs": [("levels",   "News Tapestry/1 levels.png"),
+                 ("readings", "News Tapestry/2 readings.png")],
+    },
 }
 
 # slug -> [(后缀, GIF 路径, 说明), …]

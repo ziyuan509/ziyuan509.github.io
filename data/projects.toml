@@ -214,6 +214,139 @@ read, an unreadable failure state is not a minor bug.
 
 
 [[project]]
+slug     = "news-tapestry"
+name     = "The Spirit of the Digital Age: An Animated Tapestry of News"
+tagline  = "Live news, classified in the browser, sets the conditions under which a cellular automaton grows."
+kind     = "visualisation"
+year     = "2025"
+role     = "Concept · Code · Visual mapping"
+tags     = ["Sentiment analysis", "Cellular automata", "Transformers.js", "p5.js"]
+image    = "assets/img/projects/news-tapestry.jpg"
+card     = "assets/img/projects/news-tapestry-card.jpg"
+featured = true
+links    = { video = "https://youtu.be/wCdlqLWAuVU", code = "https://github.com/ziyuan509/Realtime-news-emotion" }
+# 只写代码里真实存在的行为。PDF 说情绪会改变 CA 的「生命规则」，
+# 但代码里规则是固定的 HighLife，情绪改的是运行条件——页面按代码写。
+# 表格里的新闻标题是转述，不是原文引用。
+lead     = """
+A live news feed rendered as a woven surface. Each story is classified in the browser by a sentiment
+model, and the result does not choose an image — it sets the conditions under which a cellular automaton
+grows. Upbeat coverage weaves fast, dense and luminous; bleak coverage thins out, slows down and stops
+renewing itself. The rule underneath never changes. What the piece ends up showing most clearly is not
+the mood of the news but what a sentiment model actually listens to.
+"""
+facts = [
+  { icon = "sensing", label = "Input",     value = "Live US top stories from NewsAPI, one per step" },
+  { icon = "code",    label = "Model",     value = "Quantised DistilBERT (SST-2), run client-side with Transformers.js" },
+  { icon = "layers",  label = "Mapping",   value = "Five bands → tempo, seeding, mutation, trail, glow" },
+  { icon = "display", label = "Rendering", value = "p5.js · HighLife (B36/S23) on a wrapping grid" },
+]
+
+  [[project.section]]
+  heading = "A binary model on a continuous axis"
+  body = """
+The reader steps through stories with a single control. Each step pulls the next story from NewsAPI and
+classifies its text — the opening paragraph where the API supplies one, otherwise headline and standfirst —
+with a DistilBERT model fine-tuned on SST-2, loaded through Transformers.js and run entirely in the page.
+SST-2 is a two-class task, so the model returns a label and a probability rather than a position on a
+scale. The score folds the two into one axis: the label picks the side, the probability picks the distance
+from the centre, softened by an exponent of 1.5 and capped at 0.1 and 0.9 so that no single story reads
+as absolute.
+<br><br>
+The mapping has a consequence worth stating plainly. A two-class model never answers <em>neither</em>:
+its winning probability is always at least 0.5, so a positive label lands between 0.64 and 0.9 and a
+negative one between 0.1 and 0.36. The neutral band exists in the mapping, but only a failed
+classification ever reaches it. The visualisation is always taking a side.
+"""
+  code = """const confidence = Math.pow(sentiment.score, 1.5);
+if (sentiment.label === 'POSITIVE') {
+  score = 0.5 + (confidence * 0.4); // Max score will be 0.9, not 1.0
+} else if (sentiment.label === 'NEGATIVE') {
+  score = 0.5 - (confidence * 0.4); // Min score will be 0.1, not 0.0
+} else {
+  score = 0.5; // Neutral
+}"""
+  code_lang = "sentiment.js — folding label and probability into one score"
+
+  [[project.section]]
+  heading = "One rule, five regimes"
+  body = """
+The automaton runs HighLife — a dead cell is born with three or six live neighbours, a live one survives
+with two or three — on a grid that wraps at its edges, so a pattern leaving one side re-enters from the
+other instead of dying against a wall. That rule is fixed. Sentiment never rewrites it; it changes the
+conditions the rule runs under. The one place sentiment reaches inside a generation is mutation: every
+cell the rule leaves dead gets a small, band-dependent chance of igniting on its own.
+<br><br>
+Holding the rule constant is what makes the bands comparable. If each band ran different physics, the
+five states would be five unrelated animations and the difference between them would carry no meaning.
+With one rule, a change in tempo or density reads as the same system under different weather.
+"""
+  code = """if (state == 0 && (neighbors == 3 || neighbors == 6)) {
+  next[i][j] = 1;
+} else if (state == 1 && (neighbors == 2 || neighbors == 3)) {
+  next[i][j] = 1;
+} else {
+  next[i][j] = 0;
+}
+if (next[i][j] == 0 && random(1) < visParams.mutationRate) {
+  next[i][j] = 1;
+}"""
+  code_lang = "sketch.js — the fixed rule, then the only sentiment-dependent step"
+
+  [[project.section]]
+  heading = "What each band changes"
+  body = """
+Each band sets five parameters. <em>Step</em> is how many frames pass between generations.
+<em>Seed</em> is how much of the grid is alive when a new story arrives and the grid is re-seeded.
+<em>Wash</em> is the opacity of the dark layer painted over the whole canvas every frame: low values let
+dead cells linger as afterimages, high values erase them almost at once. <em>Glow</em> draws a
+translucent halo behind each live cell.
+<div class="ptable"><table>
+<thead><tr><th>Band</th><th class="n">Score</th><th class="n">Step</th><th class="n">Seed</th><th class="n">Mutation</th><th class="n">Wash</th><th class="n">Glow</th></tr></thead>
+<tbody>
+<tr><td class="band"><span class="sw" style="background:rgb(255,223,0)"></span>Very positive</td><td class="n">≥ 0.8</td><td class="n">3 fr</td><td class="n">40%</td><td class="n">0.5%</td><td class="n">20</td><td class="n">30</td></tr>
+<tr><td class="band"><span class="sw" style="background:rgb(0,255,127)"></span>Positive</td><td class="n">0.6–0.8</td><td class="n">5 fr</td><td class="n">30%</td><td class="n">0.2%</td><td class="n">35</td><td class="n">15</td></tr>
+<tr><td class="band"><span class="sw" style="background:rgb(100,149,237)"></span>Neutral</td><td class="n">0.4–0.6</td><td class="n">8 fr</td><td class="n">25%</td><td class="n">0.1%</td><td class="n">40</td><td class="n">—</td></tr>
+<tr><td class="band"><span class="sw" style="background:rgb(220,20,60)"></span>Negative</td><td class="n">0.2–0.4</td><td class="n">12 fr</td><td class="n">20%</td><td class="n">0.05%</td><td class="n">50</td><td class="n">—</td></tr>
+<tr><td class="band"><span class="sw" style="background:rgb(75,0,130)"></span>Very negative</td><td class="n">&lt; 0.2</td><td class="n">20 fr</td><td class="n">15%</td><td class="n">0</td><td class="n">60</td><td class="n">—</td></tr>
+</tbody></table></div>
+Read together, the parameters pull the same way. Positive coverage is fast, crowded, self-renewing and
+leaves light behind it. Negative coverage is slow and sparse, and at the bottom band, with mutation at
+zero, nothing new can arise: the grid can only settle into still lifes and oscillators and stay there.
+"""
+  image = "assets/img/projects/news-tapestry-levels.jpg"
+  caption = "Four of the five bands, each a frame from the running system: very negative and negative above, positive and very positive below. Neutral is missing because the model never produced it."
+
+  [[project.section]]
+  heading = "The model hears the framing, not the event"
+  body = """
+Run against live coverage, the system's most legible output turned out to be a portrait of the
+classifier. SST-2 is built from film-review sentences, and the model scores news the way it would score
+a review: by the valence of the wording, not the weight of what happened. A rally in US stocks, written
+in the language of earnings, comes out as bleak as a credit scare. A military strike that left survivors,
+and a missile parade framed as a party anniversary, come out positive.
+<div class="ptable"><table>
+<thead><tr><th>Story</th><th>Band</th><th class="n">Score</th><th class="n">Conf.</th></tr></thead>
+<tbody>
+<tr><td>Asian stocks slide on US lending fears<span class="src">Bloomberg</span></td><td>Very negative</td><td class="n">0.10</td><td class="n">99.6%</td></tr>
+<tr><td>Two NFL rookies praised as “psychopaths”<span class="src">New York Post</span></td><td>Very negative</td><td class="n">0.11</td><td class="n">98.4%</td></tr>
+<tr><td>US stock futures rise on strong bank earnings<span class="src">CNBC</span></td><td>Very negative</td><td class="n">0.12</td><td class="n">96.8%</td></tr>
+<tr><td>Streaming series casts its next villain<span class="src">Variety</span></td><td>Negative</td><td class="n">0.27</td><td class="n">69.9%</td></tr>
+<tr><td>US strike on a boat in the Caribbean leaves survivors<span class="src">CBS News</span></td><td>Positive</td><td class="n">0.77</td><td class="n">76.9%</td></tr>
+<tr><td>North Korea parades a new ICBM for the ruling party’s 80th<span class="src">CNN</span></td><td>Very positive</td><td class="n">0.87</td><td class="n">95.2%</td></tr>
+<tr><td>Pop star hits back at her ex-husband’s memoir<span class="src">Yahoo News UK</span></td><td>Very positive</td><td class="n">0.88</td><td class="n">97.0%</td></tr>
+</tbody></table></div>
+Two things follow. A confident score is not a correct one: the parade is read as very positive at 95%.
+And the gap between the tone a model hears and the event a story reports is not only noise to engineer
+away — it says something about how the story was written. That gap is what
+<em>Dissonant Affect</em>, my current research project, takes up as design material: setting the
+affective reading beside the framing so that readers can see where the two diverge.
+"""
+  image = "assets/img/projects/news-tapestry-readings.jpg"
+  caption = "Two readings from the running system. A casting announcement scores negative; a missile parade scores very positive, at 95% confidence."
+
+
+[[project]]
 slug     = "touch-it"
 name     = "TOUCH IT!"
 tagline  = "A passive accessory that moves the contact point off the screen so your hand stops hiding the target."
