@@ -27,7 +27,7 @@ title = "Education"
   when  = "Jul 2026 — Dec 2026"
   # 这一条用的是实验室标。想换成 Monash 校徽就改成 logos/monash.png
   logo  = "assets/img/logos/exertion-games-lab.png"
-  what  = "Visiting Student, Exertion Games Lab"
+  what  = "Visiting Researcher, Exertion Games Lab"
   where = "Monash University, Melbourne — Department of Human-Centred Computing"
   note  = "Embodied interaction, exertion games, wearable and immersive technology, interactive prototyping, research through design."
 
@@ -41,7 +41,7 @@ title = "Education"
   [[section.entry]]
   when  = "Jan 2026 — Jun 2026"
   logo  = "assets/img/logos/aalto.png"
-  what  = "Visiting Student, Game Design and Development"
+  what  = "Exchange Student, Game Design and Development"
   where = "Aalto University, Helsinki"
   note  = "Game development, Unity prototyping, interaction design, UX prototyping, spatial interaction."
 
